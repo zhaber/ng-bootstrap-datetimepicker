@@ -43,7 +43,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
       }
     }
   }
-});
+}]);
 
 angular.module("template/datetimepicker/datetimepicker.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/datetimepicker/datetimepicker.html",
