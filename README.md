@@ -1,4 +1,5 @@
-Angular UI Bootstrap DateTimePicker
+Angular UI 
+Bootstrap Date Time Picker
 ==============
 
 You can find a sample at http://plnkr.co/edit/GIaEpg?p=preview
