@@ -1,4 +1,4 @@
-angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap", "template/datetimepicker/datetimepicker.html"])
+angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
 .directive('datetimepicker', ['$parse', function ($parse) {
   return {
     restrict: 'EA',
@@ -24,7 +24,64 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap", "template/datetim
       meredians: "=",
       mousewheel: "="
     },
-    templateUrl: 'template/datetimepicker/datetimepicker.html',
+    template: function(elem, attrs) {
+      function dashCase(name, separator){
+        return name.replace(/[A-Z]/g, function(letter, pos) {
+         return (pos ? '-' : '') + letter.toLowerCase();
+        });
+      }    
+      function createTimeAttr(timeAttr, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : timeAttr;
+        if (attrs[dateTimeAttr]) {
+          return dashCase(timeAttr) +  "=\"" + dateTimeAttr + "\" ";
+        } else {
+          return '';
+        }
+      }
+      function createDateAttr(dateAttr, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+        if (attrs[dateTimeAttr]) {
+          return dashCase(dateAttr) + "=\"" + dateTimeAttr + "\" ";
+        } else {
+          return '';
+        }
+      }
+      function createMainDateAttr(dateAttr, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+        if (attrs[dateTimeAttr]) {
+          return dashCase(dateAttr) + "=\"" + attrs[dateTimeAttr] + "\" ";
+        } else {
+          return dashCase(dateAttr);
+        }
+      }
+      var tmpl = "<div class=\"datetimepicker-wrapper\">" +
+        "<input type=\"text\" ng-model=\"ngModel\" " +
+          createDateAttr("min", "minDate") +
+          createDateAttr("max", "maxDate") +
+          createDateAttr("dayFormat") +
+          createDateAttr("monthFormat") +
+          createDateAttr("yearFormat") +
+          createDateAttr("dayHeaderFormat") +
+          createDateAttr("dayTitleFormat") +
+          createDateAttr("monthTitleFormat") +
+          createDateAttr("showWeeks") +
+          createDateAttr("startingDay") +
+          createDateAttr("yearRange") +
+          createDateAttr("datepickerOptions", "dateOptions") +
+          createMainDateAttr("datepickerPopup", "dateFormat") +
+        "/>\n" +
+      "</div>\n" +
+      "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
+        "<timepicker " + 
+          createTimeAttr("hourStep") +
+          createTimeAttr("minuteStep") +
+          createTimeAttr("showMeridian") +
+          createTimeAttr("meredians") +
+          createTimeAttr("mousewheel") + 
+        "></timepicker>\n" +
+      "</div>";
+      return tmpl;
+    },
     controller: ['$scope', function($scope) {
       $scope.time_change = function() {
         if (angular.isDefined($scope.ngModel) && angular.isDefined($scope.time)) {
@@ -33,38 +90,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap", "template/datetim
       }
     }],
     link: function(scope) {
-      function setTimeValue(timeAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : timeAttr;
-        // to be implemented
-      }
-      function setDateValue(dateAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
-        // to be implemented
-      }
-      function setParsedDateValue(dateAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
-        // to be implemented
-      }
-
-      setTimeValue("hour-step", "hourStep");
-      setTimeValue("minute-step", "minuteStep");
-      setTimeValue("show-meridian", "showMeridian")
-      setTimeValue("meredians");
-      setTimeValue("mousewheel");
-      
-      setDateValue("min", "minDate");
-      setDateValue("max", "maxDate");
-      setDateValue("dayFormat");
-      setDateValue("monthFormat");
-      setDateValue("yearFormat");
-      setDateValue("dayHeaderFormat");
-      setDateValue("dayTitleFormat");
-      setDateValue("monthTitleFormat");
-      setDateValue("showWeeks");
-      setDateValue("startingDay");
-      setDateValue("yearRange");
-      setDateValue("datepicker-options", dateOptions);
-      setParsedDateValue("datepicker-popup",  dateFormat);
       scope.$watch(function() {
           return scope.ngModel;
         }, function(ngModel) {
@@ -72,14 +97,4 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap", "template/datetim
       });
     }
   }
-}]);
-
-angular.module("template/datetimepicker/datetimepicker.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("template/datetimepicker/datetimepicker.html",
-    "<div><div class=\"datetimepicker-wrapper\">" +
-      "<input ng-model=\"ngModel\" datepicker-popup/>\n" +
-    "</div>\n" +
-    "<div class=\"datetimepicker-wrapper\" ng-change=\"time_change()\" ng-model=\"time\">\n" +
-      "<timepicker></timepicker>\n" +
-    "</div></div>");
 }]);
