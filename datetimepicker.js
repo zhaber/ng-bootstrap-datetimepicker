@@ -1,5 +1,11 @@
 angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
-.directive('datetimepicker', ['$parse', function ($parse) {
+.directive('datetimepicker', [function () {
+  if (angular.version.full < '1.1.4') {
+    return {
+      restrict: 'EA',
+      template: "<div class=\"alert alert-danger\">Angular 1.1.4 or above is required for datetimepicker to work correctly</div>"
+    };
+  }
   return {
     restrict: 'EA',
     require:'ngModel',
@@ -18,6 +24,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
       minDate: "=",
       maxDate: "=",
       dateOptions: "=",
+      dateDisabled: "&",
       hourStep: "=", 
       minuteStep: "=",
       showMeridian: "=", 
@@ -27,57 +34,63 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
     template: function(elem, attrs) {
       function dashCase(name, separator){
         return name.replace(/[A-Z]/g, function(letter, pos) {
-         return (pos ? '-' : '') + letter.toLowerCase();
+          return (pos ? '-' : '') + letter.toLowerCase();
         });
       }    
-      function createTimeAttr(timeAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : timeAttr;
+      function createAttr(innerAttr, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
         if (attrs[dateTimeAttr]) {
-          return dashCase(timeAttr) +  "=\"" + dateTimeAttr + "\" ";
+          return dashCase(innerAttr) + "=\"" + dateTimeAttr + "\" ";
         } else {
           return '';
         }
       }
-      function createDateAttr(dateAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+      function createFuncAttr(innerAttr, funcArgs, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
         if (attrs[dateTimeAttr]) {
-          return dashCase(dateAttr) + "=\"" + dateTimeAttr + "\" ";
+          return dashCase(innerAttr) + "=\"" + dateTimeAttr + "({" + funcArgs + "})\" ";
         } else {
           return '';
         }
       }
-      function createMainDateAttr(dateAttr, dateTimeAttrOpt) {
-        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+      function createRequiredAttr(innerAttr, dateTimeAttrOpt) {
+        var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
         if (attrs[dateTimeAttr]) {
-          return dashCase(dateAttr) + "=\"" + attrs[dateTimeAttr] + "\" ";
+          return dashCase(innerAttr) + "=\"" + attrs[dateTimeAttr] + "\" ";
         } else {
-          return dashCase(dateAttr);
+          return dashCase(innerAttr);
         }
+      }
+      function createAttrConcat(previousAttrs, attr) {
+        return previousAttrs + createAttr.apply(null, attr)
       }
       var tmpl = "<div class=\"datetimepicker-wrapper\">" +
         "<input type=\"text\" ng-model=\"ngModel\" " +
-          createDateAttr("min", "minDate") +
-          createDateAttr("max", "maxDate") +
-          createDateAttr("dayFormat") +
-          createDateAttr("monthFormat") +
-          createDateAttr("yearFormat") +
-          createDateAttr("dayHeaderFormat") +
-          createDateAttr("dayTitleFormat") +
-          createDateAttr("monthTitleFormat") +
-          createDateAttr("showWeeks") +
-          createDateAttr("startingDay") +
-          createDateAttr("yearRange") +
-          createDateAttr("datepickerOptions", "dateOptions") +
-          createMainDateAttr("datepickerPopup", "dateFormat") +
+          [["min", "minDate"], 
+           ["max", "maxDate"],
+           ["dayFormat"],
+           ["monthFormat"],
+           ["yearFormat"],
+           ["dayHeaderFormat"],
+           ["dayTitleFormat"],
+           ["monthTitleFormat"],
+           ["showWeeks"],
+           ["startingDay"],
+           ["yearRange"],
+           ["datepickerOptions", "dateOptions"]
+          ].reduce(createAttrConcat, '') +
+          createFuncAttr("dateDisabled", "date: date, mode: mode") +
+          createRequiredAttr("datepickerPopup", "dateFormat") +
         "/>\n" +
       "</div>\n" +
       "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
         "<timepicker " + 
-          createTimeAttr("hourStep") +
-          createTimeAttr("minuteStep") +
-          createTimeAttr("showMeridian") +
-          createTimeAttr("meredians") +
-          createTimeAttr("mousewheel") + 
+          [["hourStep"], 
+           ["minuteStep"], 
+           ["showMeridian"], 
+           ["meredians"], 
+           ["mousewheel"]
+          ].reduce(createAttrConcat, '') +
         "></timepicker>\n" +
       "</div>";
       return tmpl;
