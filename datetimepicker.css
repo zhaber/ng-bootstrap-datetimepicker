@@ -8,7 +8,7 @@
   width: 130px;
 }
 
-.datetimepicker-wrapper [ng-model=hours] {
+.datetimepicker-wrapper [ng-model=hours], [ng-model=minutes] {
   width: 46px !important;
 }
 .datetimepicker-wrapper [datepicker-popup] {
