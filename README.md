@@ -4,3 +4,65 @@ You can find a demo at http://plnkr.co/edit/GIaEpg?p=preview
 
 The control is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
+Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and thus is also localized.
+
+### Datetimepicker Settings ###
+
+All settings can be provided as attributes in the `<datetimepicker>` or globally configured through the `datetimepickerConfig`. 
+ * `ng-model` <i class="icon-eye-open"></i>
+ 	:
+ 	The date and time object.
+
+ * `show-weeks` <i class="icon-eye-open"></i>
+ 	_(Defaults: true)_ :
+ 	Whether to display week numbers.
+
+ * `starting-day`
+ 	_(Defaults: 0)_ :
+ 	Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
+
+ * `min-date` <i class="icon-eye-open"></i>
+ 	_(Default: null)_ :
+ 	Defines the minimum available date.
+
+ * `max-date` <i class="icon-eye-open"></i>
+ 	_(Default: null)_ :
+ 	Defines the maximum available date.
+
+ * `date-disabled (date, mode)`
+ 	_(Default: null)_ :
+ 	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
+
+ * `day-format`
+ 	_(Default: 'dd')_ :
+ 	Format of day in month.
+
+ * `month-format`
+ 	_(Default: 'MMMM')_ :
+ 	Format of month in year.
+
+ * `year-format`
+ 	_(Default: 'yyyy')_ :
+ 	Format of year in year range.
+
+ * `year-range`
+ 	_(Default: 20)_ :
+ 	Number of years displayed in year selection.
+
+ * `day-header-format`
+ 	_(Default: 'EEE')_ :
+ 	Format of day in week header.
+
+ * `day-title-format`
+ 	_(Default: 'MMMM yyyy')_ :
+ 	Format of title when selecting day.
+
+ * `month-title-format`
+ 	_(Default: 'yyyy')_ :
+ 	Format of title when selecting month.
+
+ * `date-format`
+ 	_(Default: 'yyyy-MM-dd')_ :
+ 	The format for displayed dates.
+
+Options for datepicker can be passed as JSON using the `datepicker-options` attribute.
