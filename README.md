@@ -8,7 +8,6 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
 
 ### Datetimepicker Settings ###
 
-All settings can be provided as attributes in the `<datetimepicker>` or globally configured through the `datetimepickerConfig`. 
  * `ng-model` <i class="icon-eye-open"></i>
  	:
  	The date and time object.
@@ -65,4 +64,30 @@ All settings can be provided as attributes in the `<datetimepicker>` or globally
  	_(Default: 'yyyy-MM-dd')_ :
  	The format for displayed dates.
 
-Options for datepicker can be passed as JSON using the `datepicker-options` attribute.
+ * `datepicker-options` attribute.
+  	_(Default: {})_ :
+   Options for datepicker in JSON format
+
+ * `hour-step` <i class="icon-eye-open"></i>
+ 	_(Defaults: 1)_ :
+ 	 Number of hours to increase or decrease when using a button.
+
+ * `minute-step` <i class="icon-eye-open"></i>
+ 	_(Defaults: 1)_ :
+ 	 Number of minutes to increase or decrease when using a button.
+
+ * `show-meridian` <i class="icon-eye-open"></i>
+ 	_(Defaults: true)_ :
+ 	Whether to display 12H or 24H mode.
+
+ * `meridians`
+ 	_(Defaults: ['AM', 'PM'])_ :
+ 	 Meridian labels
+
+ * `readonly-input`
+ 	_(Defaults: false)_ :
+ 	 Whether user can type inside the hours & minutes input.
+
+ * `mousewheel`
+ 	_(Defaults: true)_ :
+ 	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
