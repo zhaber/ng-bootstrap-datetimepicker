@@ -84,7 +84,7 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
  	_(Defaults: ['AM', 'PM'])_ :
  	 Meridian labels
 
- * `readonly-input`
+ * `readonly-time`
  	_(Defaults: false)_ :
  	 Whether user can type inside the hours & minutes input.
 
