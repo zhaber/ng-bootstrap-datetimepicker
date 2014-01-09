@@ -71,7 +71,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
             return previousAttrs + createAttr.apply(null, attr)
           }
           var tmpl = "<div class=\"datetimepicker-wrapper\">" +
-            "<input type=\"text\" ng-model=\"ngModel\" " + [
+            "<input class=\"form-control\" type=\"text\" ng-model=\"ngModel\" " + [
               ["min", "minDate"],
               ["max", "maxDate"],
               ["dayFormat"],
