@@ -71,16 +71,15 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
             return previousAttrs + createAttr.apply(null, attr)
           }
           var tmpl = "<div class=\"datetimepicker-wrapper\">" +
-            "<input class=\"form-control\" type=\"text\" ng-model=\"ngModel\" " + [
-              ["min", "minDate"],
-              ["max", "maxDate"],
+            "<input class=\"form-control\" type=\"text\" ng-click=\"open($event)\" is-open=\"opened\" ng-model=\"ngModel\" " + [
+              ["minDate"],
+              ["maxDate"],
               ["dayFormat"],
               ["monthFormat"],
               ["yearFormat"],
               ["dayHeaderFormat"],
               ["dayTitleFormat"],
               ["monthTitleFormat"],
-              ["showWeeks"],
               ["startingDay"],
               ["yearRange"],
               ["datepickerOptions", "dateOptions"]
@@ -109,6 +108,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
               }
             }
+            $scope.open = function($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+              $scope.opened = true;
+            };
           }
         ],
         link: function(scope) {

@@ -1,6 +1,6 @@
 <h3>Angular UI<br>Bootstrap Date Time Picker</h3>
 
-You can find a demo at http://plnkr.co/edit/GIaEpg?p=preview
+Demo: http://plnkr.co/edit/GIaEpg?p=preview
 
 The control is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
@@ -11,10 +11,6 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
  * `ng-model` <i class="icon-eye-open"></i>
  	:
  	The date and time object.
-
- * `show-weeks` <i class="icon-eye-open"></i>
- 	_(Defaults: true)_ :
- 	Whether to display week numbers.
 
  * `starting-day`
  	_(Defaults: 0)_ :
