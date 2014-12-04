@@ -88,15 +88,3 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
 
- * `current-text `
- _(Default: 'Today')_ : 
- The text to display for the current day button.
-
- * `clear-text`
- _(Default: 'Clear')_ : 
- The text to display for the clear button.
-
- * `close-text`
- _(Default: 'Done')_ : 
- The text to display for the close button.
-
