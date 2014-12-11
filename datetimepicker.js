@@ -22,13 +22,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
           startingDay: "=",
           yearRange: "=",
           dateFormat: "=",
-          ngDisabled:'=',
           minDate: "=",
           maxDate: "=",
           dateOptions: "=",
           dateDisabled: "&",
-          ngChange: '&',
-          changeDelay:'=',
           hourStep: "=",
           minuteStep: "=",
           showMeridian: "=",
@@ -74,9 +71,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
             return previousAttrs + createAttr.apply(null, attr)
           }
           var tmpl = "<div class=\"datetimepicker-wrapper\">" +
-            "<input class=\"form-control\" ng-change='date_change()' type=\"text\" ng-click=\"open($event)\" is-open=\"opened\" ng-model=\"ngModel\" " + [
+            "<input class=\"form-control\" type=\"text\" ng-click=\"open($event)\" is-open=\"opened\" ng-model=\"ngModel\" " + [
               ["minDate"],
-              ["ngDisabled"],
               ["maxDate"],
               ["dayFormat"],
               ["monthFormat"],
@@ -90,13 +86,12 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
             createEvalAttr("datepickerPopup", "dateFormat") +
-            createEvalAttr('currentText') +
-            createEvalAttr('closeText') +
-            createEvalAttr('clearText') +
             "/>\n" +
             "</div>\n" +
             "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
-            "<timepicker hour-step='ngDisabled ? 0 : hourStep' minute-step='ngDisabled ? 0 : minuteStep' " + [
+            "<timepicker " + [
+              ["hourStep"],
+              ["minuteStep"],
               ["showMeridian"],
               ["meredians"],
               ["mousewheel"]
@@ -106,40 +101,20 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
             "</div>";
           return tmpl;
         },
-        controller: ['$scope', '$timeout',
-          function ($scope, $timeout) {
-              var delay = $scope.changeDelay;
-              var timer = false;
-              if (!angular.isDefined(delay)) {
-                  delay = 0;
+        controller: ['$scope',
+          function($scope) {
+            $scope.time_change = function() {
+              if (angular.isDefined($scope.ngModel) && angular.isDefined($scope.time)) {
+                $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
+                // trigger value change
+                $scope.ngModel = new Date($scope.ngModel);
               }
-              var publishChange = function () {
-                  if (timer) {
-                      $timeout.cancel(timer);
-                  }
-                  timer = $timeout(function () {
-                      if (angular.isDefined($scope.ngChange)) {
-                          $scope.ngChange();
-                          timer = false;
-                      }
-                  }, delay);
-              };
-              $scope.date_change = function () {
-                  publishChange();
-              };
-              $scope.time_change = function () {
-                  if (!$scope.ngDisabled && angular.isDefined($scope.ngModel) && angular.isDefined($scope.time)) {
-                      $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
-                      publishChange();
-                  }
-              };
-              $scope.open = function ($event) {
-                  $event.preventDefault();
-                  $event.stopPropagation();
-                  if (!$scope.ngDisabled) {
-                      $scope.opened = true;
-                  }
-              };
+            }
+            $scope.open = function($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+              $scope.opened = true;
+            };
           }
         ],
         link: function(scope) {
