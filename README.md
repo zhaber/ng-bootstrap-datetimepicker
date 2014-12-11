@@ -87,3 +87,4 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
  * `mousewheel`
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
+
