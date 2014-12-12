@@ -106,8 +106,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
             $scope.time_change = function() {
               if (angular.isDefined($scope.ngModel) && angular.isDefined($scope.time)) {
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
-                // trigger value change
-                $scope.ngModel = new Date($scope.ngModel);
               }
             }
             $scope.open = function($event) {
