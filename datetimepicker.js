@@ -120,8 +120,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
           scope.$watch(function() {
             return scope.ngModel;
           }, function(ngModel) {
-            scope.time = ngModel;
-          });
+            scope.time = new Date(ngModel);
+          }, true);
         }
       }
     }
