@@ -1,4 +1,6 @@
-angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap"])
+angular.module('ui.bootstrap.datetimepicker',
+    ["ui.bootstrap.dateparser", "ui.bootstrap.datepicker", "ui.bootstrap.timepicker"]
+  )
   .directive('datetimepicker', [
     function() {
       if (angular.version.full < '1.1.4') {
