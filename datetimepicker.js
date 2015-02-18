@@ -1,6 +1,16 @@
 angular.module('ui.bootstrap.datetimepicker',
     ["ui.bootstrap.dateparser", "ui.bootstrap.datepicker", "ui.bootstrap.timepicker"]
   )
+  .directive('datepickerPopup', function (){
+   return {
+    restrict: 'EAC',
+    require: 'ngModel',
+    link: function(scope, element, attr, controller) {
+      //remove the default formatter from the input directive to prevent conflict
+      controller.$formatters.shift();
+    }
+   }
+  }) 
   .directive('datetimepicker', [
     function() {
       if (angular.version.full < '1.1.4') {
