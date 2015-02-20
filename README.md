@@ -6,6 +6,17 @@ The control is based on AngularUI [Datepicker](https://github.com/angular-ui/boo
 
 Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and thus is also localized.
 
+##Install
+
+Run `bower install angular-ui-bootstrap-datetimepicker --save` to persist it to `bower.json`
+
+Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must be using the `ui.bootstrap` module as well.
+
+###Usage
+~~~html
+<datetimepicker min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker>
+~~~
+
 ### Datetimepicker Settings ###
 
  * `ng-model` <i class="icon-eye-open"></i>
