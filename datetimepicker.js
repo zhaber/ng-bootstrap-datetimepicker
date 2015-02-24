@@ -43,6 +43,7 @@ angular.module('ui.bootstrap.datetimepicker',
           showMeridian: "=",
           meredians: "=",
           mousewheel: "=",
+          placeholder: "=",
           readonlyTime: "@"
         },
         template: function(elem, attrs) {
@@ -109,6 +110,7 @@ angular.module('ui.bootstrap.datetimepicker',
               ["mousewheel"]
           ].reduce(createAttrConcat, '') +
             createEvalAttr("readonlyInput", "readonlyTime") +
+            createEvalAttr("placeholder", "placeholder") +
             "></timepicker>\n" +
             "</div>";
           return tmpl;
