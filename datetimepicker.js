@@ -99,6 +99,7 @@ angular.module('ui.bootstrap.datetimepicker',
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
             createEvalAttr("datepickerPopup", "dateFormat") +
+            createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
             "</div>\n" +
             "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
@@ -110,7 +111,6 @@ angular.module('ui.bootstrap.datetimepicker',
               ["mousewheel"]
           ].reduce(createAttrConcat, '') +
             createEvalAttr("readonlyInput", "readonlyTime") +
-            createEvalAttr("placeholder", "placeholder") +
             "></timepicker>\n" +
             "</div>";
           return tmpl;

@@ -1,0 +1,41 @@
+<!doctype html>
+<html ng-app="plunker">
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="example.js"></script>
+    <script src="datetimepicker.js"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Plugin files -->
+    <!-- script src="http://zhaber.github.io/datetimepicker/datetimepicker-tpls-0.11.js"></script -->
+    <link href="http://zhaber.github.io/datetimepicker/datetimepicker.css" type="text/css" rel="stylesheet">  
+  </head>
+  <body> 
+
+  <div ng-controller="DateTimePickerDemoCtrl" class="container">
+
+    <br>
+      <pre>Selected time and date is: <em>{{date | date:'shortTime' }}, {{date | date:'fullDate' }}</em></pre>
+
+      <datetimepicker placeholder="mm/dd/yyyy" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker>
+      <hr>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="dateTimeNow()" tooltip="Set date and time to now">Now</button>
+        <button class="btn btn-default btn-sm" ng-click="toggleMinDate()" tooltip="After today restriction">Min date</button>
+        <button class="btn btn-default btn-sm" ng-click="timeToggleMode()">12H / 24H</button>
+      </div>
+      <div class="row">
+        <div class="col-xs-2 col-sm-2">Hours step</div>
+        <div class="col-xs-3">
+          <select ng-model="hourStep" class="form-control" ng-options="opt for opt in timeOptions.hourStep"></select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-2 col-sm-2">Minutes step</div>
+        <div class="col-xs-3">
+          <select ng-model="minuteStep" class="form-control" ng-options="opt for opt in timeOptions.minuteStep"></select>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
