@@ -38,6 +38,7 @@ angular.module('ui.bootstrap.datetimepicker',
           maxDate: "=",
           dateOptions: "=",
           dateDisabled: "&",
+          defaultTime: "=",
           hourStep: "=",
           minuteStep: "=",
           showMeridian: "=",
@@ -134,7 +135,11 @@ angular.module('ui.bootstrap.datetimepicker',
           scope.$watch(function() {
             return scope.ngModel;
           }, function(ngModel) {
-            scope.time = new Date(ngModel);
+            if (ngModel) {
+              scope.time = new Date(ngModel);
+            } else {
+              scope.time = new Date(scope.defaultTime);
+            }
           }, true);
         }
       }

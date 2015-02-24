@@ -12,6 +12,7 @@ var DateTimePickerDemoCtrl = function ($scope, $timeout) {
    
   $scope.maxDate = new Date('2014-06-22');
   $scope.toggleMinDate();
+  $scope.defaultTime = new Date(null,null,null,23,59,0,0);
 
   $scope.dateOptions = {
     startingDay: 1,
