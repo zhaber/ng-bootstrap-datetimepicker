@@ -2,7 +2,8 @@ angular.module('plunker', ['ui.bootstrap', 'ui.bootstrap.datetimepicker'])
 
 var DateTimePickerDemoCtrl = function ($scope, $timeout) {
   $scope.dateTimeNow = function() {
-    $scope.date = new Date();
+    $scope.date = null;
+    $scope.date1 = new Date();
   };
   $scope.dateTimeNow();
   
