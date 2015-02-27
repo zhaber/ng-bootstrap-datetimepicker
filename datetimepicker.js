@@ -135,8 +135,18 @@ angular.module('ui.bootstrap.datetimepicker',
           scope.$watch(function() {
             return scope.ngModel;
           }, function(ngModel) {
-            if (ngModel) {
+            if (ngModel && !scope.defaultTime) {
               scope.time = new Date(ngModel);
+            } else if (ngModel && scope.defaultTime) {
+              scope.time = new Date(
+                ngModel.getFullYear(),
+                ngModel.getMonth(),
+                ngModel.getDate(),
+                scope.defaultTime.getHours(),
+                scope.defaultTime.getMinutes(),
+                scope.defaultTime.getSeconds(),
+                0
+              );
             } else {
               scope.time = new Date(scope.defaultTime);
             }
