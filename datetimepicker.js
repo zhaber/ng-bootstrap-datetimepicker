@@ -139,16 +139,6 @@ angular.module('ui.bootstrap.datetimepicker',
         link: function(scope, element, attrs) {
           if (typeof scope.last_date === 'undefined') { scope.last_date = [] }
           if (typeof(scope.last_date[scope.$id]) === 'undefined') { scope.last_date[scope.$id] = null; }
-          function sameDate(date1, date2) {
-            if (date1 && date2 &&
-              date1.getFullYear() == date2.getFullYear() &&
-              date1.getMonth() == date2.getMonth() &&
-              date1.getDate() == date2.getDate()
-            ){
-              return true;
-            }
-            return false;
-          };
 
           scope.$watch(function() {
             return scope.ngModel;
