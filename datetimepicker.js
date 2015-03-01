@@ -131,13 +131,15 @@ angular.module('ui.bootstrap.datetimepicker',
             };
           }
         ],
-        link: function(scope) {
+        link: function(scope, element) {
           scope.$watch(function() {
             return scope.ngModel;
           }, function(ngModel) {
-            scope.time = new Date(ngModel);
-             // FIXME do deep watch on ngModel in a way that does not add leading zeros to timepicker minutes/hours on user input
-          });
+            // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
+            if (!element[0].contains(document.activeElement)) {
+              scope.time = new Date(ngModel);
+            }
+          }, true);
         }
       }
     }
