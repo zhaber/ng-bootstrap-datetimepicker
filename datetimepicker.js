@@ -38,6 +38,7 @@ angular.module('ui.bootstrap.datetimepicker',
           maxDate: "=",
           dateOptions: "=",
           dateDisabled: "&",
+          defaultTime: "=",
           hourStep: "=",
           minuteStep: "=",
           showMeridian: "=",
@@ -83,6 +84,7 @@ angular.module('ui.bootstrap.datetimepicker',
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
           }
+
           var tmpl = "<div class=\"datetimepicker-wrapper\">" +
             "<input class=\"form-control\" type=\"text\" ng-click=\"open($event)\" is-open=\"opened\" ng-model=\"ngModel\" " + [
               ["minDate"],
@@ -118,9 +120,13 @@ angular.module('ui.bootstrap.datetimepicker',
         controller: ['$scope',
           function($scope) {
             $scope.time_change = function() {
+              if (!$scope.ngModel) {
+                // This happens when the user has specified a null model date AND the user has specified a defaultTime AND the user changes the timepicker before changing the datepicker.
+                $scope.last_date[$scope.$id] = $scope.time;
+              }
               if ($scope.ngModel && $scope.time) {
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
-                $scope.ngModel = new Date($scope.ngModel);
+                $scope.last_date[$scope.$id] = $scope.ngModel;
               }
             }
             $scope.open = function($event) {
@@ -130,12 +136,52 @@ angular.module('ui.bootstrap.datetimepicker',
             };
           }
         ],
-        link: function(scope) {
+        link: function(scope, element, attrs) {
+          if (typeof scope.last_date === 'undefined') { scope.last_date = [] }
+          if (typeof(scope.last_date[scope.$id]) === 'undefined') { scope.last_date[scope.$id] = null; }
+
           scope.$watch(function() {
             return scope.ngModel;
           }, function(ngModel) {
-            scope.time = new Date(ngModel);
-          }, true);
+            if (ngModel) {
+              var new_date = new Date(ngModel);
+            }
+            if (ngModel && !scope.defaultTime) {
+              // This happens when the user makes a change to the datepicker AND defaultTime has not been specified.
+              scope.time = new Date(ngModel);
+            } else if (ngModel && scope.defaultTime) {
+              // This happens when the user makes a change to the datepicker AND defaultTime has been specified.
+              if (scope.last_date[scope.$id]) {
+                scope.time = ngModel = new Date(
+                  new_date.getFullYear(),
+                  new_date.getMonth(),
+                  new_date.getDate(),
+                  scope.last_date[scope.$id].getHours(),
+                  scope.last_date[scope.$id].getMinutes(),
+                  scope.last_date[scope.$id].getSeconds(),
+                  0
+                );
+              } else {
+                // This happens on the first edit of the datepicker AND the model date is null.
+                scope.time = ngModel = new Date(
+                  new_date.getFullYear(),
+                  new_date.getMonth(),
+                  new_date.getDate(),
+                  scope.defaultTime.getHours(),
+                  scope.defaultTime.getMinutes(),
+                  scope.defaultTime.getSeconds(),
+                  0
+                );
+              }
+              scope.time_change();
+            } else {
+              // This happens when the user has not specified an initial model value AND defaultTime has been specified.
+              scope.time = new Date(scope.defaultTime);
+            }
+            if (ngModel) {
+              scope.last_date[scope.$id] = new Date(ngModel);
+            }
+          });
         }
       }
     }

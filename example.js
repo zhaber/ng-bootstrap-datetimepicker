@@ -2,7 +2,8 @@ angular.module('plunker', ['ui.bootstrap', 'ui.bootstrap.datetimepicker'])
 
 var DateTimePickerDemoCtrl = function ($scope, $timeout) {
   $scope.dateTimeNow = function() {
-    $scope.date = new Date();
+    $scope.date = null;
+    $scope.date1 = new Date();
   };
   $scope.dateTimeNow();
   
@@ -12,6 +13,7 @@ var DateTimePickerDemoCtrl = function ($scope, $timeout) {
    
   $scope.maxDate = new Date('2014-06-22');
   $scope.toggleMinDate();
+  $scope.defaultTime = new Date(null,null,null,23,59,0,0);
 
   $scope.dateOptions = {
     startingDay: 1,

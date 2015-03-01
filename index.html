@@ -13,9 +13,14 @@
   <div ng-controller="DateTimePickerDemoCtrl" class="container">
 
     <br>
+      <pre>Selected time and date is: <em>{{date1 | date:'shortTime' }}, {{date1 | date:'fullDate' }}</em></pre>
+
+    <datetimepicker placeholder="mm/dd/yyyy" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date1" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker></br>
+
+    <br>
       <pre>Selected time and date is: <em>{{date | date:'shortTime' }}, {{date | date:'fullDate' }}</em></pre>
 
-      <datetimepicker placeholder="mm/dd/yyyy" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker>
+      <datetimepicker placeholder="mm/dd/yyyy" default-time="defaultTime" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker> &lt;-- Has Default Time Set to 23:59
       <hr>
       <div class="form-group">
         <button class="btn btn-default btn-sm" ng-click="dateTimeNow()" tooltip="Set date and time to now">Now</button>
