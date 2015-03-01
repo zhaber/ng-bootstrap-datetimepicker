@@ -136,7 +136,7 @@ angular.module('ui.bootstrap.datetimepicker',
             return scope.ngModel;
           }, function(ngModel) {
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
-            if (!element[0].contains(document.activeElement)) {
+            if (!element.children()[1].contains(document.activeElement)) {
               scope.time = new Date(ngModel);
             }
           }, true);
