@@ -119,8 +119,8 @@ angular.module('ui.bootstrap.datetimepicker',
           function($scope) {
             $scope.time_change = function() {
               if ($scope.ngModel && $scope.time) {
+                if (typeof $scope.ngModel == "string") $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
-                $scope.ngModel = new Date($scope.ngModel);
               }
             }
             $scope.open = function($event) {
@@ -135,7 +135,8 @@ angular.module('ui.bootstrap.datetimepicker',
             return scope.ngModel;
           }, function(ngModel) {
             scope.time = new Date(ngModel);
-          }, true);
+             // FIXME do deep watch on ngModel in a way that does not add leading zeros to timepicker minutes/hours on user input
+          });
         }
       }
     }
