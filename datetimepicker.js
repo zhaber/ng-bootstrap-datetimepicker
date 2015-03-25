@@ -10,7 +10,7 @@ angular.module('ui.bootstrap.datetimepicker',
       controller.$formatters.shift();
     }
    }
-  }) 
+  })
   .directive('datetimepicker', [
     function() {
       if (angular.version.full < '1.1.4') {
@@ -44,7 +44,8 @@ angular.module('ui.bootstrap.datetimepicker',
           meredians: "=",
           mousewheel: "=",
           placeholder: "=",
-          readonlyTime: "@"
+          readonlyTime: "@",
+          ngDisabled: "="
         },
         template: function(elem, attrs) {
           function dashCase(name, separator) {
@@ -95,7 +96,8 @@ angular.module('ui.bootstrap.datetimepicker',
               ["monthTitleFormat"],
               ["startingDay"],
               ["yearRange"],
-              ["datepickerOptions", "dateOptions"]
+              ["datepickerOptions", "dateOptions"],
+              ["ngDisabled"]
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
             createEvalAttr("datepickerPopup", "dateFormat") +
