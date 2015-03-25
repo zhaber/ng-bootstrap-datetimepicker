@@ -19,6 +19,8 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    "example.js",
+    "index.html",
     "test",
     "tests"
   ],
