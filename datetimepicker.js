@@ -123,7 +123,7 @@ angular.module('ui.bootstrap.datetimepicker',
                 if (typeof $scope.ngModel == "string") $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
               }
-            }
+            };
             $scope.open = function($event) {
               $event.preventDefault();
               $event.stopPropagation();
