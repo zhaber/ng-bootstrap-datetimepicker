@@ -84,7 +84,11 @@ angular.module('ui.bootstrap.datetimepicker',
             return previousAttrs + createAttr.apply(null, attr)
           }
           var tmpl = "<div class=\"datetimepicker-wrapper\">" +
-            "<input class=\"form-control\" type=\"text\" ng-click=\"open($event)\" is-open=\"opened\" ng-model=\"ngModel\" " + [
+            "<input class=\"form-control\" type=\"text\" " +
+              "ng-click=\"open($event)\" " +
+              "ng-change=\"date_change($event)\" " +
+              "is-open=\"opened\" " +
+              "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
               ["dayFormat"],
@@ -117,11 +121,20 @@ angular.module('ui.bootstrap.datetimepicker',
         },
         controller: ['$scope',
           function($scope) {
+            $scope.date_change = function(event) {
+              // If we changed the date only, set the time (h,m) on it.
+              // This is important in case the previous date was null.
+              // This solves the issue when the user set a date and time, cleared the date, and chose another date,
+              // and then, the time was cleared too - which is unexpected
+              var time = $scope.time;
+              $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+            };
+
             $scope.time_change = function() {
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
                 if (typeof $scope.ngModel == "string") $scope.ngModel = new Date($scope.ngModel);
-                $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes());
+                $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
               }
             };
             $scope.open = function($event) {
@@ -132,12 +145,32 @@ angular.module('ui.bootstrap.datetimepicker',
           }
         ],
         link: function(scope, element) {
+          var firstTimeAssign = true;
+
           scope.$watch(function() {
             return scope.ngModel;
-          }, function(ngModel) {
+          }, function(newTime) {
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (!element.children()[1].contains(document.activeElement)) {
-              scope.time = new Date(ngModel);
+
+              if (newTime == null || newTime === '') { // if the newTime is not defined
+                if (firstTimeAssign) { // if it's the first time we assign the time value
+                  // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
+                  newTime = new Date;
+                  newTime.setHours(0, 0, 0, 0);
+                } else { // just leave the time unchanged
+                  return;
+                }
+              }
+
+              if (!(newTime instanceof Date)) { // if the ngModel was not a Date, convert it
+                newTime = new Date(newTime);
+              }
+
+              scope.time = newTime; // change the time
+              if (firstTimeAssign) {
+                firstTimeAssign = false;
+              }
             }
           }, true);
         }
