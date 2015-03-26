@@ -121,7 +121,7 @@ angular.module('ui.bootstrap.datetimepicker',
         },
         controller: ['$scope',
           function($scope) {
-            $scope.date_change = function(event) {
+            $scope.date_change = function() {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
               // This solves the issue when the user set a date and time, cleared the date, and chose another date,
