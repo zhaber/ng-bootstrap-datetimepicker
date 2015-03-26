@@ -127,7 +127,9 @@ angular.module('ui.bootstrap.datetimepicker',
               // This solves the issue when the user set a date and time, cleared the date, and chose another date,
               // and then, the time was cleared too - which is unexpected
               var time = $scope.time;
-              $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+              if ($scope.ngModel) { // if this is null, that's because the user cleared the date field
+                $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+              }
             };
 
             $scope.time_change = function() {
