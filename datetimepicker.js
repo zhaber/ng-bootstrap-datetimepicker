@@ -30,6 +30,7 @@ angular.module('ui.bootstrap.datetimepicker',
           dayHeaderFormat: "=",
           dayTitleFormat: "=",
           monthTitleFormat: "=",
+          showTimeForEmptyDate: "=?",
           showWeeks: "=",
           startingDay: "=",
           yearRange: "=",
@@ -104,7 +105,11 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
             "</div>\n" +
-            "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
+            "<div class=\"datetimepicker-wrapper\" " +
+              "ng-show=\"showTimeForEmptyDate || ngModel\" " +
+              "ng-model=\"time\" " +
+              "ng-change=\"time_change()\" " +
+              "style=\"display:inline-block\">\n" +
             "<timepicker " + [
               ["hourStep"],
               ["minuteStep"],
@@ -119,6 +124,9 @@ angular.module('ui.bootstrap.datetimepicker',
         },
         controller: ['$scope',
           function($scope) {
+            // Default value is true
+            $scope.showTimeForEmptyDate = $scope.showTimeForEmptyDate == null || $scope.showTimeForEmptyDate ;
+
             $scope.time_change = function() {
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
