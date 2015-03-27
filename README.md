@@ -70,6 +70,10 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
  * `date-format`
  	_(Default: 'yyyy-MM-dd')_ :
  	The format for displayed dates.
+ 	
+ * `show-time-for-empty-date`
+ _(Default: true)_ :
+ Show the time inputs even when the date is empty (null, invalid date or '') 
 
  * `datepicker-options` attribute.
   	_(Default: {})_ :
