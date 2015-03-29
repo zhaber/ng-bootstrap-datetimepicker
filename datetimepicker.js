@@ -158,7 +158,7 @@ angular.module('ui.bootstrap.datetimepicker',
               if (newTime == null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
-                  newTime = new Date;
+                  newTime = new Date();
                   newTime.setHours(0, 0, 0, 0);
                 } else { // just leave the time unchanged
                   return;
