@@ -101,5 +101,4 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
 
 * `utc-mode`
 	_(Defaults: false)_ :
-	 If set to true, date and edited are in UTC as opposed to default mode when
-   they are edited in browser timezone.
+	 If set to true, date and time edited are in UTC as opposed to default mode when they are presented in browser timezone.
