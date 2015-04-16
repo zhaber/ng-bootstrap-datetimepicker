@@ -45,7 +45,8 @@ angular.module('ui.bootstrap.datetimepicker',
           mousewheel: "=",
           placeholder: "=",
           readonlyTime: "@",
-          ngDisabled: "="
+          ngDisabled: "=",
+          utcMode: "="
         },
         template: function(elem, attrs) {
           function dashCase(name, separator) {
@@ -123,6 +124,7 @@ angular.module('ui.bootstrap.datetimepicker',
         },
         controller: ['$scope',
           function($scope) {
+
             $scope.date_change = function() {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
@@ -130,7 +132,11 @@ angular.module('ui.bootstrap.datetimepicker',
               // and then, the time was cleared too - which is unexpected
               var time = $scope.time;
               if ($scope.ngModel) { // if this is null, that's because the user cleared the date field
-                $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+                if ($scope.utcMode) {
+                  $scope.ngModel.setUTCHours(time.getHours(), time.getMinutes(), 0, 0);
+                } else {
+                  $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+                }
               }
             };
 
@@ -138,7 +144,11 @@ angular.module('ui.bootstrap.datetimepicker',
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
                 if (typeof $scope.ngModel == "string") $scope.ngModel = new Date($scope.ngModel);
-                $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+                if ($scope.utcMode) {
+                  $scope.ngModel.setUTCHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+                } else {
+                  $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+                }
               }
             };
             $scope.open = function($event) {
@@ -161,7 +171,11 @@ angular.module('ui.bootstrap.datetimepicker',
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
                   newTime = new Date();
-                  newTime.setHours(0, 0, 0, 0);
+                  if (scope.utcMode) {
+                    newTime.setUTCHours(0, 0, 0, 0);
+                  } else {
+                    newTime.setHours(0, 0, 0, 0);
+                  }
                 } else { // just leave the time unchanged
                   return;
                 }
@@ -171,7 +185,13 @@ angular.module('ui.bootstrap.datetimepicker',
                 newTime = new Date(newTime);
               }
 
-              scope.time = newTime; // change the time
+              if (scope.utcMode) {
+                utcTime = new Date(newTime.getTime() -
+                  (newTime.getTimezoneOffset() * 60000));
+                scope.time = utcTime
+              } else {
+                scope.time = newTime; // change the time
+              }
               if (firstTimeAssign) {
                 firstTimeAssign = false;
               }

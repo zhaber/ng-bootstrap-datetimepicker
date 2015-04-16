@@ -99,3 +99,7 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
 
+* `utc-mode`
+	_(Defaults: false)_ :
+	 If set to true, date and edited are in UTC as opposed to default mode when
+   they are edited in browser timezone.
