@@ -137,7 +137,7 @@ angular.module('ui.bootstrap.datetimepicker',
             $scope.time_change = function() {
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
-                if (typeof $scope.ngModel == "string") $scope.ngModel = new Date($scope.ngModel);
+                if (typeof $scope.ngModel === "string" || typeof $scope.ngModel == "number") $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
               }
             };
