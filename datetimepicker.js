@@ -137,7 +137,7 @@ angular.module('ui.bootstrap.datetimepicker',
             $scope.time_change = function() {
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
-                if (typeof $scope.ngModel === "string" || typeof $scope.ngModel == "number") $scope.ngModel = new Date($scope.ngModel);
+                if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
               }
             };
@@ -167,9 +167,9 @@ angular.module('ui.bootstrap.datetimepicker',
                 }
               }
 
-              if (!(newTime instanceof Date)) { // if the ngModel was not a Date, convert it
-                newTime = new Date(newTime);
-              }
+              // Update timepicker (watch on ng-model in timepicker does not use object equality),
+              // also if the ngModel was not a Date, convert it to date
+              newTime = new Date(newTime);
 
               scope.time = newTime; // change the time
               if (firstTimeAssign) {
