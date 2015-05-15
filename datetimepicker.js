@@ -105,6 +105,9 @@ angular.module('ui.bootstrap.datetimepicker',
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
             createEvalAttr("datepickerPopup", "dateFormat") +
+            createEvalAttr("currentText", "currentText") +
+            createEvalAttr("clearText", "clearText") +
+            createEvalAttr("closeText", "closeText") +
             createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
             "</div>\n" +
