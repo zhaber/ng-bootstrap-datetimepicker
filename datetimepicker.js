@@ -43,8 +43,6 @@ angular.module('ui.bootstrap.datetimepicker',
           showMeridian: "=",
           meredians: "=",
           mousewheel: "=",
-          placeholder: "@",
-          readonlyTime: "@",
           ngDisabled: "="
         },
         template: function(elem, attrs) {
