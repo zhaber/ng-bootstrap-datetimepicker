@@ -43,7 +43,7 @@ angular.module('ui.bootstrap.datetimepicker',
           showMeridian: "=",
           meredians: "=",
           mousewheel: "=",
-          placeholder: "=",
+          placeholder: "@",
           readonlyTime: "@",
           ngDisabled: "="
         },
@@ -77,7 +77,7 @@ angular.module('ui.bootstrap.datetimepicker',
             if (attrs[dateTimeAttr]) {
               return dashCase(innerAttr) + "=\"" + attrs[dateTimeAttr] + "\" ";
             } else {
-              return dashCase(innerAttr);
+              return dashCase(innerAttr) + " ";
             }
           }
 
