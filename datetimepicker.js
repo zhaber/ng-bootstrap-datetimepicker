@@ -43,7 +43,8 @@ angular.module('ui.bootstrap.datetimepicker',
           showMeridian: "=",
           meredians: "=",
           mousewheel: "=",
-          ngDisabled: "="
+          ngDisabled: "=",
+          name: "="
         },
         template: function(elem, attrs) {
           function dashCase(name, separator) {
@@ -107,6 +108,7 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("clearText", "clearText") +
             createEvalAttr("closeText", "closeText") +
             createEvalAttr("placeholder", "placeholder") +
+            createEvalAttr("name", "name") +
             "/>\n" +
             "</div>\n" +
             "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +

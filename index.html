@@ -10,17 +10,19 @@
   </head>
   <body> 
 
-  <div ng-controller="DateTimePickerDemoCtrl" class="container">
+  <form name="dateForm" ng-controller="DateTimePickerDemoCtrl" class="container">
 
     <br>
       <pre>Selected time and date is: <em>{{date | date:'shortTime' }}, {{date | date:'fullDate' }}</em></pre>
 
-      <datetimepicker placeholder="mm/dd/yyyy" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker>
+      <datetimepicker placeholder="mm/dd/yyyy" min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false" ng-required="true" name="date"></datetimepicker>
+      <p ng-show="dateForm.date.$invalid">*Required</p>
       <hr>
       <div class="form-group">
         <button class="btn btn-default btn-sm" ng-click="dateTimeNow()" tooltip="Set date and time to now">Now</button>
         <button class="btn btn-default btn-sm" ng-click="toggleMinDate()" tooltip="After today restriction">Min date</button>
         <button class="btn btn-default btn-sm" ng-click="timeToggleMode()">12H / 24H</button>
+        <button class="btn btn-default btn-sm" ng-click="clear()">Clear (show validation)</button>
       </div>
       <div class="row">
         <div class="col-xs-2 col-sm-2">Hours step</div>
@@ -34,6 +36,6 @@
           <select ng-model="minuteStep" class="form-control" ng-options="opt for opt in timeOptions.minuteStep"></select>
         </div>
       </div>
-    </div>
+    </form>
   </body>
 </html>
