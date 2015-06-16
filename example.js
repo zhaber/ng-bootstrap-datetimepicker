@@ -39,4 +39,9 @@ var DateTimePickerDemoCtrl = function ($scope, $timeout) {
   $scope.timeToggleMode = function() {
     $scope.showMeridian = !$scope.showMeridian;
   };
+
+  $scope.clear = function() {
+    $scope.date = undefined;
+    console.log($scope.dateForm.$valid);
+  }
 };
