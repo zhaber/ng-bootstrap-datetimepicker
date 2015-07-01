@@ -99,18 +99,18 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
  	_(Defaults: false)_ :
  	 Whether user can type inside the date input.
 
- * `mousewheel`
+* `mousewheel`
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
 
- * `current-text` 
+* `current-text` 
  _(Default: 'Today')_ : 
  The text to display for the current day button.
 
- * `clear-text`
+* `clear-text`
  _(Default: 'Clear')_ : 
  The text to display for the clear button.
 
- * `close-text`
+* `close-text`
  _(Default: 'Done')_ : 
  The text to display for the close popup button.
