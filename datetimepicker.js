@@ -116,7 +116,7 @@ angular.module('ui.bootstrap.datetimepicker',
               ["minuteStep"],
               ["showMeridian"],
               ["meredians"],
-              ["mousewheel"]
+              ["mousewheel"],
               ["readonlyInput", "readonlyTime"]
           ].reduce(createAttrConcat, '') +
             "></timepicker>\n" +
