@@ -14,7 +14,17 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
 
 ###Usage
 ~~~html
-<datetimepicker min-date="minDate" show-weeks="showWeeks" hour-step="hourStep" minute-step="minuteStep" ng-model="date" show-meridian="showMeridian" date-format="dd-MMM-yyyy" date-options="dateOptions" date-disabled="disabled(date, mode)" readonly-time="false"></datetimepicker>
+<datetimepicker min-date="minDate" 
+                show-weeks="showWeeks" 
+                hour-step="hourStep" 
+                minute-step="minuteStep" 
+                ng-model="date" 
+                show-meridian="showMeridian" 
+                date-format="dd-MMM-yyyy" 
+                date-options="dateOptions"
+                date-disabled="disabled(date, mode)" 
+                readonly-time="false">
+</datetimepicker>
 ~~~
 
 ### Datetimepicker Settings ###
