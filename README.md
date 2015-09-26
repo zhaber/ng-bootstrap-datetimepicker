@@ -113,6 +113,10 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
 
+* ` show-spinners`
+ 	_(Defaults: true)_ :
+ 	 Shows spinner arrows above and below the inputs.
+
 * `current-text` 
  _(Default: 'Today')_ : 
  The text to display for the current day button.
