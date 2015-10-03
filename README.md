@@ -4,7 +4,7 @@ Demo: http://plnkr.co/edit/z1sKPT?p=preview
 
 The control is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
-Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and thus is also localized.
+Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and is localized.
 
 ##Bower Install
 
@@ -12,18 +12,18 @@ Run `bower install angular-ui-bootstrap-datetimepicker --save` to persist it to 
 
 Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must be using the `ui.bootstrap` module as well.
 
-###Usage
+###Usage Sample
+~~~javascript
+// Disable weekend selection
+$scope.isDisabledDate = function(calendarDate, mode) {
+  return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+};
+~~~
 ~~~html
-<datetimepicker min-date="minDate" 
-                show-weeks="showWeeks" 
-                hour-step="hourStep" 
-                minute-step="minuteStep" 
-                ng-model="date" 
-                show-meridian="showMeridian" 
+<datetimepicker ng-model="date" 
                 date-format="dd-MMM-yyyy" 
-                date-options="dateOptions"
-                date-disabled="disabled(date, mode)" 
-                readonly-time="false">
+                date-options="dateOptions" 
+                date-disabled="isDisabledDate(date, mode)">
 </datetimepicker>
 ~~~
 
