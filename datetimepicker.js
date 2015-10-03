@@ -117,7 +117,8 @@ angular.module('ui.bootstrap.datetimepicker',
               ["meredians"],
               ["mousewheel"],
               ["readonlyInput", "readonlyTime"]
-          ].reduce(createAttrConcat, '') +
+            ].reduce(createAttrConcat, '') +
+            createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
           return tmpl;
