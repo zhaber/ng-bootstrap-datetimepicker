@@ -15,8 +15,8 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
 ###Usage Sample
 ~~~javascript
 // Disable weekend selection
-$scope.isDisabledDate = function(calendarDate, mode) {
-  return mode === 'day' && (calendarDate.getDay() === 0 || calendarDate.getDay() === 6);
+$scope.isDisabledDate = function(selectedDate, mode) {
+  return mode === 'day' && (selectedDate.getDay() === 0 || selectedDate.getDay() === 6);
 };
 ~~~
 ~~~html
