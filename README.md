@@ -1,6 +1,6 @@
 <h3>Angular UI<br>Bootstrap Date Time Picker</h3>
 
-Demo: http://plnkr.co/edit/z1sKPT?p=preview
+Demo: http://plnkr.co/edit/zJOc40?p=preview
 
 The control is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
