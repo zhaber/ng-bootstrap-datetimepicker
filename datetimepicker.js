@@ -102,7 +102,7 @@ angular.module('ui.bootstrap.datetimepicker',
               ["ngDisabled", "readonlyDate"]
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
-            createEvalAttr("datepickerPopup", "dateFormat") +
+            createEvalAttr("uibDatepickerPopup", "dateFormat") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
             createEvalAttr("closeText", "closeText") +
@@ -110,7 +110,7 @@ angular.module('ui.bootstrap.datetimepicker',
             "/>\n" +
             "</div>\n" +
             "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
-            "<timepicker " + [
+            "<uib-timepicker " + [
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
