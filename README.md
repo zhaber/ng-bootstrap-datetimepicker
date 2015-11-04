@@ -81,7 +81,7 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Default: 'yyyy-MM-dd')_ :
  	The format for displayed dates.
 
- * `datepicker-options` attribute.
+ * `date-options` attribute.
   	_(Default: {})_ :
    Options for datepicker in JSON format
 
