@@ -43,7 +43,9 @@ angular.module('ui.bootstrap.datetimepicker',
           meredians: "=",
           mousewheel: "=",
           readonlyTime: "=",
-          readonlyDate: "="
+          readonlyDate: "=",
+          hiddenTime: "=",
+          hiddenDate: "="
         },
         template: function(elem, attrs) {
           function dashCase(name, separator) {
@@ -82,7 +84,7 @@ angular.module('ui.bootstrap.datetimepicker',
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
           }
-          var tmpl = "<div class=\"datetimepicker-wrapper\">" +
+          var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
             "<input class=\"form-control\" type=\"text\" " +
               "ng-click=\"open($event)\" " +
               "ng-change=\"date_change($event)\" " +
@@ -99,6 +101,7 @@ angular.module('ui.bootstrap.datetimepicker',
               ["startingDay"],
               ["yearRange"],
               ["datepickerOptions", "dateOptions"],
+              ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
@@ -108,19 +111,21 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("closeText", "closeText") +
             createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
-            "</div>\n" +
-            "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
+            "</div>\n";
+          var timeTmpl = "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
             "<uib-timepicker " + [
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
               ["meredians"],
               ["mousewheel"],
+              ["ngHide", "hiddenTime"],
               ["readonlyInput", "readonlyTime"]
             ].reduce(createAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
+          var tmpl = dateTmpl + timeTmpl;
           return tmpl;
         },
         controller: ['$scope',
@@ -155,11 +160,11 @@ angular.module('ui.bootstrap.datetimepicker',
 
           scope.$watch(function() {
             return scope.ngModel;
-          }, function(newTime) {
+          }, function(newTime) { 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
-            if (!element.children()[1].contains(document.activeElement)) {
+            if (element.children()[1] && !element.children()[1].contains(document.activeElement)) {
 
-              if (newTime == null || newTime === '') { // if the newTime is not defined
+              if (newTime === null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
                   newTime = new Date();
