@@ -89,7 +89,7 @@ angular.module('ui.bootstrap.datetimepicker',
               "ng-click=\"open($event)\" " +
               "ng-change=\"date_change($event)\" " +
               "is-open=\"opened\" " +
-              "ng-model=\"ngModel\" " + [
+              "ng-model=\"ngModelDatepicker\" " + [
               ["minDate"],
               ["maxDate"],
               ["dayFormat"],
@@ -125,27 +125,28 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
-          var tmpl = dateTmpl + timeTmpl;
+          var tmpl = dateTmpl + timeTmpl + ' <span class="label label-info" ng-click="now()">当前</span>';
           return tmpl;
         },
-        controller: ['$scope',
-          function($scope) {
+        controller: ['$scope', '$element', '$timeout',
+          function($scope, $element, $timeout) {
             $scope.date_change = function() {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
               // This solves the issue when the user set a date and time, cleared the date, and chose another date,
               // and then, the time was cleared too - which is unexpected
               var time = $scope.time;
-              if ($scope.ngModel) { // if this is null, that's because the user cleared the date field
-                $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
+              if ($scope.ngModelDatepicker) { // if this is null, that's because the user cleared the date field
+                $scope.ngModelDatepicker.setHours(time.getHours(), time.getMinutes(), 0, 0);
               }
             };
 
             $scope.time_change = function() {
-              if ($scope.ngModel && $scope.time) {
+              if ($scope.ngModelDatepicker && $scope.time) {
                 // convert from ISO format to Date
-                if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
-                $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+                if (!($scope.ngModelDatepicker instanceof Date)) $scope.ngModelDatepicker = new Date($scope.ngModelDatepicker);
+                $scope.ngModelDatepicker.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+                $scope.ngModel = moment($scope.ngModelDatepicker.toISOString()).format("YYYY-MM-DD HH:mm:ss");
               }
             };
             $scope.open = function($event) {
@@ -153,22 +154,41 @@ angular.module('ui.bootstrap.datetimepicker',
               $event.stopPropagation();
               $scope.opened = true;
             };
+            
+            $scope.now = function () {
+              $scope.ngModelDatepicker = new Date();
+            }
+
+
           }
         ],
+        //compile: function (tElement, tAttrs) {
+        //  return function link(scope, element, attrs, ctrl, transcludeFn) {
+        //    console.log('link');
+        //    $compile(element)(scope);
+        //  }
+        //}
+
         link: function(scope, element) {
           var firstTimeAssign = true;
+          var isSet = false;
+
+          scope.ngModelDatepicker = undefined;
 
           scope.$watch(function() {
-            if(typeof scope.ngModel == "string") {
-              scope.ngModel = new Date(scope.ngModel);
-            }  
-            return scope.ngModel;
-          }, function(newTime) { 
+            if(!isSet && typeof scope.ngModel != "undefined" && scope.ngModel != "") {
+              isSet = true;
+              var newDate = new Date(scope.ngModel);
+              if(newDate != "Invalid Date") {
+                scope.ngModelDatepicker = newDate;
+              }
+            }
+            return scope.ngModelDatepicker;
+          }, function(newTime) {
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (element.children()[1] && !element.children()[1].contains(document.activeElement)) {
-
               if (typeof newTime == "undefined" || newTime === null || newTime === '') { // if the newTime is not defined
-                if (firstTimeAssign) { // if it's the first time we assign the time value
+                if (firstTimeAssign && !isSet) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
                   newTime = new Date();
                   newTime.setHours(0, 0, 0, 0);
@@ -180,8 +200,11 @@ angular.module('ui.bootstrap.datetimepicker',
               // Update timepicker (watch on ng-model in timepicker does not use object equality),
               // also if the ngModel was not a Date, convert it to date
               newTime = new Date(newTime);
-
               scope.time = newTime; // change the time
+
+              if(!firstTimeAssign) {
+                scope.ngModel = moment(newTime.toISOString()).format("YYYY-MM-DD HH:mm:ss");
+              }
               if (firstTimeAssign) {
                 firstTimeAssign = false;
               }
