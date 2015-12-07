@@ -167,7 +167,7 @@ angular.module('ui.bootstrap.datetimepicker',
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (element.children()[1] && !element.children()[1].contains(document.activeElement)) {
 
-              if (newTime === null || newTime === '') { // if the newTime is not defined
+              if (typeof newTime == "undefined" || newTime === null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
                   newTime = new Date();
