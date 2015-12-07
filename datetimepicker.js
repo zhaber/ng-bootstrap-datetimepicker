@@ -159,6 +159,9 @@ angular.module('ui.bootstrap.datetimepicker',
           var firstTimeAssign = true;
 
           scope.$watch(function() {
+            if(typeof scope.ngModel == "string") {
+              scope.ngModel = new Date(scope.ngModel);
+            }  
             return scope.ngModel;
           }, function(newTime) { 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
