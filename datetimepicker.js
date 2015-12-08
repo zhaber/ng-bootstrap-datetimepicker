@@ -125,7 +125,7 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
-          var tmpl = dateTmpl + timeTmpl + ' <span class="label label-info" ng-click="now()">当前</span>';
+          var tmpl = dateTmpl + timeTmpl + ' <span class="label label-info" ng-click="now()">当前</span> <span class="label label-info" ng-click="clear()">清除</span>';
           return tmpl;
         },
         controller: ['$scope', '$element', '$timeout',
@@ -154,12 +154,19 @@ angular.module('ui.bootstrap.datetimepicker',
               $event.stopPropagation();
               $scope.opened = true;
             };
-            
+
             $scope.now = function () {
               $scope.ngModelDatepicker = new Date();
+              $scope.ngModel = moment($scope.ngModelDatepicker.toISOString()).format("YYYY-MM-DD HH:mm:ss");
             }
 
-
+            $scope.clear = function () {
+              $scope.ngModelDatepicker = undefined;
+              var nt = new Date();
+              nt.setHours(0, 0, 0, 0);
+              $scope.time = nt;
+              $scope.ngModel = '';
+            }
           }
         ],
         //compile: function (tElement, tAttrs) {
