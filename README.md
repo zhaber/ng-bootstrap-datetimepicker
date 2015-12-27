@@ -33,10 +33,6 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	:
  	The date and time object.
 
- * `starting-day`
- 	_(Defaults: 0)_ :
- 	Starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).
-
  * `min-date` <i class="icon-eye-open"></i>
  	_(Default: null)_ :
  	Defines the minimum available date.
