@@ -123,7 +123,7 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
-          var tmpl = dateTmpl + timeTmpl;
+          var tmpl = "<ng-form name=\"datetimepickerForm\">" + dateTmpl + timeTmpl + "</ng-form>";
           return tmpl;
         },
         controller: ['$scope',
@@ -153,7 +153,7 @@ angular.module('ui.bootstrap.datetimepicker',
             };
           }
         ],
-        link: function(scope, element) {
+        link: function(scope, element, attrs, ctrl) {
           var firstTimeAssign = true;
 
           scope.$watch(function() {
@@ -161,7 +161,6 @@ angular.module('ui.bootstrap.datetimepicker',
           }, function(newTime) { 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (element.children()[1] && !element.children()[1].contains(document.activeElement)) {
-
               if (newTime === null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
@@ -184,6 +183,18 @@ angular.module('ui.bootstrap.datetimepicker',
               }
             }
           }, true);
+          
+          scope.$watch(function() {
+            return scope.datetimepickerForm.$error;
+          }, function(errors) { 
+            Object.keys(ctrl.$error).forEach(function(error) {
+              ctrl.$setValidity(error, true);
+            });
+            Object.keys(errors).forEach(function(error) {
+              ctrl.$setValidity(error, false);
+            });
+          }, 
+          true);
         }
       }
     }
