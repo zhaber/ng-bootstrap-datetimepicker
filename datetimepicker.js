@@ -159,7 +159,7 @@ angular.module('ui.bootstrap.datetimepicker',
           scope.$watch(function() {
             return scope.ngModel;
           }, function(newTime) { 
-            var timeElement = document.evaluate("//div[@ng-model='time']", 
+            var timeElement = document.evaluate("//uib-timepicker", 
                 element[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (timeElement && !timeElement.contains(document.activeElement)) {
