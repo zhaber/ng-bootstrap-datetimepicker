@@ -47,7 +47,7 @@ angular.module('ui.bootstrap.datetimepicker',
           hiddenDate: "="
         },
         template: function(elem, attrs) {
-          function dashCase(name, separator) {
+          function dashCase(name) {
             return name.replace(/[A-Z]/g, function(letter, pos) {
               return (pos ? '-' : '') + letter.toLowerCase();
             });
@@ -176,9 +176,11 @@ angular.module('ui.bootstrap.datetimepicker',
               // also if the ngModel was not a Date, convert it to date
               newTime = new Date(newTime);
 
-              scope.time = newTime; // change the time
-              if (firstTimeAssign) {
-                firstTimeAssign = false;
+              if (isNaN(newTime.getTime()) === false) {
+                scope.time = newTime; // change the time
+                if (firstTimeAssign) {
+                  firstTimeAssign = false;
+                }
               }
             }
           }, true);
