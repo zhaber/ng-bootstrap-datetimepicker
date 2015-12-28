@@ -123,7 +123,7 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
-          var tmpl = "<ng-form name=\"datetimepickerForm\">" + dateTmpl + timeTmpl + "</ng-form>";
+          var tmpl = "<ng-form name=\"datetimepickerForm\" isolate-form>" + dateTmpl + timeTmpl + "</ng-form>";
           return tmpl;
         },
         controller: ['$scope',
@@ -159,8 +159,10 @@ angular.module('ui.bootstrap.datetimepicker',
           scope.$watch(function() {
             return scope.ngModel;
           }, function(newTime) { 
+            var timeElement = document.evaluate("//div[@ng-model='time']", 
+                element[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
-            if (element.children()[1] && !element.children()[1].contains(document.activeElement)) {
+            if (timeElement && !timeElement.contains(document.activeElement)) {
               if (newTime === null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
@@ -198,4 +200,36 @@ angular.module('ui.bootstrap.datetimepicker',
         }
       }
     }
-  ]);
+  ]).directive('isolateForm', [function () {
+    return {
+        restrict: 'A',
+        require: '?form',
+        link: function (scope, elm, attrs, ctrl) {
+            if (!ctrl) {
+                return;
+            }
+            // Do a copy of the controller
+            var ctrlCopy = {};
+            angular.copy(ctrl, ctrlCopy);
+
+            // Get the parent of the form
+            var parent = elm.parent().controller('form');
+            // Remove parent link to the controller
+            parent.$removeControl(ctrl);
+
+            // Replace form controller with a "isolated form"
+            var isolatedFormCtrl = {
+                $setValidity: function (validationToken, isValid, control) {
+                    ctrlCopy.$setValidity(validationToken, isValid, control);
+                    parent.$setValidity(validationToken, true, ctrl);
+                },
+                $setDirty: function () {
+                    elm.removeClass('ng-pristine').addClass('ng-dirty');
+                    ctrl.$dirty = true;
+                    ctrl.$pristine = false;
+                },
+            };
+            angular.extend(ctrl, isolatedFormCtrl);
+        }
+    };
+  }]);
