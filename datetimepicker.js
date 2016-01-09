@@ -36,7 +36,9 @@ angular.module('ui.bootstrap.datetimepicker',
           maxDate: "=",
           dateOptions: "=",
           dateDisabled: "&",
+          dateNgClick: "&",
           hourStep: "=",
+          dateOpened: "=",
           minuteStep: "=",
           showMeridian: "=",
           meredians: "=",
@@ -62,12 +64,12 @@ angular.module('ui.bootstrap.datetimepicker',
             }
           }
 
-          function createFuncAttr(innerAttr, funcArgs, dateTimeAttrOpt) {
+          function createFuncAttr(innerAttr, funcArgs, dateTimeAttrOpt, defaultImpl) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
             if (attrs[dateTimeAttr]) {
               return dashCase(innerAttr) + "=\"" + dateTimeAttr + "({" + funcArgs + "})\" ";
             } else {
-              return '';
+              return angular.isDefined(defaultImpl) ? dashCase(innerAttr) + "=\"" + defaultImpl + "\"": "";
             }
           }
 
@@ -85,9 +87,8 @@ angular.module('ui.bootstrap.datetimepicker',
           }
           var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
             "<input class=\"form-control\" type=\"text\" " +
-              "ng-click=\"open($event)\" " +
               "ng-change=\"date_change($event)\" " +
-              "is-open=\"opened\" " +
+              "is-open=\"innerDateOpened\" " +
               "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
@@ -103,6 +104,10 @@ angular.module('ui.bootstrap.datetimepicker',
               ["ngDisabled", "readonlyDate"]
           ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
+            createFuncAttr("ngClick", 
+                "$event: $event, opened: opened", 
+                "dateNgClick",
+                "open($event)") +
             createEvalAttr("uibDatepickerPopup", "dateFormat") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
@@ -149,7 +154,7 @@ angular.module('ui.bootstrap.datetimepicker',
             $scope.open = function($event) {
               $event.preventDefault();
               $event.stopPropagation();
-              $scope.opened = true;
+              $scope.innerDateOpened = true;
             };
           }
         ],
@@ -196,7 +201,16 @@ angular.module('ui.bootstrap.datetimepicker',
               ctrl.$setValidity(error, false);
             });
           }, 
-          true);
+          true); 
+          
+          scope.$watch('dateOpened', function(value) {
+            scope.innerDateOpened = value;
+          });
+          scope.$watch('innerDateOpened', function(value) {
+            if (angular.isDefined(scope.dateOpened)) {
+                scope.dateOpened = value;
+            }
+          })
         }
       }
     }
