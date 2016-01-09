@@ -164,8 +164,9 @@ angular.module('ui.bootstrap.datetimepicker',
           scope.$watch(function() {
             return scope.ngModel;
           }, function(newTime) { 
-            var timeElement = document.evaluate("//uib-timepicker", 
+            var timeElement = document.evaluate("//*[@ng-model='time']", 
                 element[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (timeElement && !timeElement.contains(document.activeElement)) {
               if (newTime === null || newTime === '') { // if the newTime is not defined
@@ -177,7 +178,6 @@ angular.module('ui.bootstrap.datetimepicker',
                   return;
                 }
               }
-
               // Update timepicker (watch on ng-model in timepicker does not use object equality),
               // also if the ngModel was not a Date, convert it to date
               newTime = new Date(newTime);
@@ -247,3 +247,6 @@ angular.module('ui.bootstrap.datetimepicker',
         }
     };
   }]);
+
+  
+
