@@ -92,6 +92,7 @@ angular.module('ui.bootstrap.datetimepicker',
               "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
+              ["datepickerAppendToBody"]
               ["dayFormat"],
               ["monthFormat"],
               ["yearFormat"],
