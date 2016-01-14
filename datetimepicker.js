@@ -92,7 +92,6 @@ angular.module('ui.bootstrap.datetimepicker',
               "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
-              ["datepickerAppendToBody"]
               ["dayFormat"],
               ["monthFormat"],
               ["yearFormat"],
@@ -112,6 +111,7 @@ angular.module('ui.bootstrap.datetimepicker',
             createEvalAttr("uibDatepickerPopup", "dateFormat") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
+            createEvalAttr("datepickerAppendToBody", "datepickerAppendToBody") +
             createEvalAttr("closeText", "closeText") +
             createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
