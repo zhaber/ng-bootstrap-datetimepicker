@@ -1,22 +1,20 @@
-angular.module('ui.bootstrap.datetimepicker',
-    ["ui.bootstrap.dateparser", "ui.bootstrap.datepicker", "ui.bootstrap.timepicker"]
-  )
-  .directive('datepickerPopup', function (){
-   return {
-    restrict: 'EAC',
-    require: 'ngModel',
-    link: function(scope, element, attr, controller) {
-      //remove the default formatter from the input directive to prevent conflict
-      controller.$formatters.shift();
+angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bootstrap.datepicker", "ui.bootstrap.timepicker"])
+  .directive('datepickerPopup', function () {
+    return {
+      restrict: 'EAC',
+      require: 'ngModel',
+      link: function (scope, element, attr, controller) {
+        //remove the default formatter from the input directive to prevent conflict
+        controller.$formatters.shift();
+      }
     }
-   }
   })
   .directive('datetimepicker', [
-    function() {
-      if (angular.version.full < '1.1.4') {
+    function () {
+      if (angular.version.full < '1.4.0') {
         return {
           restrict: 'EA',
-          template: "<div class=\"alert alert-danger\">Angular 1.1.4 or above is required for datetimepicker to work correctly</div>"
+          template: "<div class=\"alert alert-danger\">Angular 1.4.0 or above is required for datetimepicker to work correctly</div>"
         };
       }
       return {
@@ -48,9 +46,9 @@ angular.module('ui.bootstrap.datetimepicker',
           hiddenTime: "=",
           hiddenDate: "="
         },
-        template: function(elem, attrs) {
+        template: function (elem, attrs) {
           function dashCase(name) {
-            return name.replace(/[A-Z]/g, function(letter, pos) {
+            return name.replace(/[A-Z]/g, function (letter, pos) {
               return (pos ? '-' : '') + letter.toLowerCase();
             });
           }
@@ -69,7 +67,7 @@ angular.module('ui.bootstrap.datetimepicker',
             if (attrs[dateTimeAttr]) {
               return dashCase(innerAttr) + "=\"" + dateTimeAttr + "({" + funcArgs + "})\" ";
             } else {
-              return angular.isDefined(defaultImpl) ? dashCase(innerAttr) + "=\"" + defaultImpl + "\"": "";
+              return angular.isDefined(defaultImpl) ? dashCase(innerAttr) + "=\"" + defaultImpl + "\"" : "";
             }
           }
 
@@ -85,11 +83,12 @@ angular.module('ui.bootstrap.datetimepicker',
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
           }
+
           var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
             "<input class=\"form-control\" type=\"text\" " +
-              "ng-change=\"date_change($event)\" " +
-              "is-open=\"innerDateOpened\" " +
-              "ng-model=\"ngModel\" " + [
+            "ng-change=\"date_change($event)\" " +
+            "is-open=\"innerDateOpened\" " +
+            "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
               ["dayFormat"],
@@ -102,12 +101,12 @@ angular.module('ui.bootstrap.datetimepicker',
               ["datepickerOptions", "dateOptions"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
-          ].reduce(createAttrConcat, '') +
+            ].reduce(createAttrConcat, '') +
             createFuncAttr("dateDisabled", "date: date, mode: mode") +
-            createFuncAttr("ngClick", 
-                "$event: $event, opened: opened", 
-                "dateNgClick",
-                "open($event)") +
+            createFuncAttr("ngClick",
+              "$event: $event, opened: opened",
+              "dateNgClick",
+              "open($event)") +
             createEvalAttr("uibDatepickerPopup", "dateFormat") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
@@ -133,40 +132,42 @@ angular.module('ui.bootstrap.datetimepicker',
           return tmpl;
         },
         controller: ['$scope',
-          function($scope) {
-            $scope.date_change = function() {
+          function ($scope) {
+            $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
               // This solves the issue when the user set a date and time, cleared the date, and chose another date,
               // and then, the time was cleared too - which is unexpected
               var time = $scope.time;
-              if ($scope.ngModel) { // if this is null, that's because the user cleared the date field
+              if ($scope.ngModel && $scope.time) { // if ngModel is null, that's because the user cleared the date field
                 $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
               }
             };
 
-            $scope.time_change = function() {
+            $scope.time_change = function () {
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
                 if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
+              } else {
+                $scope.ngModel = new Date();
               }
             };
-            $scope.open = function($event) {
+            $scope.open = function ($event) {
               $event.preventDefault();
               $event.stopPropagation();
               $scope.innerDateOpened = true;
             };
           }
         ],
-        link: function(scope, element, attrs, ctrl) {
+        link: function (scope, element, attrs, ctrl) {
           var firstTimeAssign = true;
 
-          scope.$watch(function() {
+          scope.$watch(function () {
             return scope.ngModel;
-          }, function(newTime) { 
-            var timeElement = document.evaluate("//*[@ng-model='time']", 
-                element[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue
+          }, function (newTime) {
+            var timeElement = document.evaluate("//*[@ng-model='time']",
+              element[0], null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (timeElement && !timeElement.contains(document.activeElement)) {
@@ -175,7 +176,8 @@ angular.module('ui.bootstrap.datetimepicker',
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
                   newTime = new Date();
                   newTime.setHours(0, 0, 0, 0);
-                } else { // just leave the time unchanged
+                } else { // clear the time
+                  scope.time = null;
                   return;
                 }
               }
@@ -191,63 +193,59 @@ angular.module('ui.bootstrap.datetimepicker',
               }
             }
           }, true);
-          
-          scope.$watch(function() {
+
+          scope.$watch(function () {
             return scope.datetimepickerForm.$error;
-          }, function(errors) { 
-            Object.keys(ctrl.$error).forEach(function(error) {
+          }, function (errors) {
+            Object.keys(ctrl.$error).forEach(function (error) {
               ctrl.$setValidity(error, true);
             });
-            Object.keys(errors).forEach(function(error) {
+            Object.keys(errors).forEach(function (error) {
               ctrl.$setValidity(error, false);
             });
-          }, 
-          true); 
-          
-          scope.$watch('dateOpened', function(value) {
+          }, true);
+
+          scope.$watch('dateOpened', function (value) {
             scope.innerDateOpened = value;
           });
-          scope.$watch('innerDateOpened', function(value) {
+          scope.$watch('innerDateOpened', function (value) {
             if (angular.isDefined(scope.dateOpened)) {
-                scope.dateOpened = value;
+              scope.dateOpened = value;
             }
           })
         }
       }
     }
   ]).directive('isolateForm', [function () {
-    return {
-        restrict: 'A',
-        require: '?form',
-        link: function (scope, elm, attrs, ctrl) {
-            if (!ctrl) {
-                return;
-            }
-            // Do a copy of the controller
-            var ctrlCopy = {};
-            angular.copy(ctrl, ctrlCopy);
+  return {
+    restrict: 'A',
+    require: '?form',
+    link: function (scope, elm, attrs, ctrl) {
+      if (!ctrl) {
+        return;
+      }
+      // Do a copy of the controller
+      var ctrlCopy = {};
+      angular.copy(ctrl, ctrlCopy);
 
-            // Get the parent of the form
-            var parent = elm.parent().controller('form');
-            // Remove parent link to the controller
-            parent.$removeControl(ctrl);
+      // Get the parent of the form
+      var parent = elm.parent().controller('form');
+      // Remove parent link to the controller
+      parent.$removeControl(ctrl);
 
-            // Replace form controller with a "isolated form"
-            var isolatedFormCtrl = {
-                $setValidity: function (validationToken, isValid, control) {
-                    ctrlCopy.$setValidity(validationToken, isValid, control);
-                    parent.$setValidity(validationToken, true, ctrl);
-                },
-                $setDirty: function () {
-                    elm.removeClass('ng-pristine').addClass('ng-dirty');
-                    ctrl.$dirty = true;
-                    ctrl.$pristine = false;
-                },
-            };
-            angular.extend(ctrl, isolatedFormCtrl);
+      // Replace form controller with a "isolated form"
+      var isolatedFormCtrl = {
+        $setValidity: function (validationToken, isValid, control) {
+          ctrlCopy.$setValidity(validationToken, isValid, control);
+          parent.$setValidity(validationToken, true, ctrl);
+        },
+        $setDirty: function () {
+          elm.removeClass('ng-pristine').addClass('ng-dirty');
+          ctrl.$dirty = true;
+          ctrl.$pristine = false;
         }
-    };
-  }]);
-
-  
-
+      };
+      angular.extend(ctrl, isolatedFormCtrl);
+    }
+  };
+}]);
