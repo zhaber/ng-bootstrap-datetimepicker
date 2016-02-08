@@ -122,6 +122,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["showMeridian"],
               ["meredians"],
               ["mousewheel"],
+              ["min", "minDate"],
               ["ngHide", "hiddenTime"],
               ["readonlyInput", "readonlyTime"]
             ].reduce(createAttrConcat, '') +
@@ -145,6 +146,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             };
 
             $scope.time_change = function () {
+              
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
                 if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
@@ -171,6 +173,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
             if (timeElement && !timeElement.contains(document.activeElement)) {
+
               if (newTime === null || newTime === '') { // if the newTime is not defined
                 if (firstTimeAssign) { // if it's the first time we assign the time value
                   // create a new default time where the hours, minutes, seconds and milliseconds are set to 0.
@@ -186,7 +189,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               newTime = new Date(newTime);
 
               if (isNaN(newTime.getTime()) === false) {
-                scope.time = newTime; // change the time
+                scope.time = newTime; // change the time in timepcicker
                 if (firstTimeAssign) {
                   firstTimeAssign = false;
                 }
