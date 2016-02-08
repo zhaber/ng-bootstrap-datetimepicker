@@ -123,6 +123,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["meredians"],
               ["mousewheel"],
               ["min", "minDate"],
+              ["max", "maxDate"],
               ["ngHide", "hiddenTime"],
               ["readonlyInput", "readonlyTime"]
             ].reduce(createAttrConcat, '') +
