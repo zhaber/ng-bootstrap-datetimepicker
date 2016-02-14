@@ -29,7 +29,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           dayTitleFormat: "=",
           monthTitleFormat: "=",
           yearRange: "=",
-          dateFormat: "=",
           minDate: "=",
           maxDate: "=",
           dateOptions: "=",
@@ -88,6 +87,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "<input class=\"form-control\" type=\"text\" " +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
+            "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
               ["minDate"],
               ["maxDate"],
@@ -107,7 +107,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               "$event: $event, opened: opened",
               "dateNgClick",
               "open($event)") +
-            createEvalAttr("uibDatepickerPopup", "dateFormat") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
             createEvalAttr("datepickerAppendToBody", "datepickerAppendToBody") +
@@ -133,8 +132,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           var tmpl = "<ng-form name=\"datetimepickerForm\" isolate-form>" + dateTmpl + timeTmpl + "</ng-form>";
           return tmpl;
         },
-        controller: ['$scope',
-          function ($scope) {
+        controller: ['$scope', '$attrs',
+          function ($scope, $attrs) {
             $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
@@ -161,6 +160,9 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               $event.stopPropagation();
               $scope.innerDateOpened = true;
             };
+            $attrs.$observe('dateFormat', function(newDateFormat, oldValue) {
+              $scope.dateFormat = newDateFormat;
+            });
           }
         ],
         link: function (scope, element, attrs, ctrl) {
