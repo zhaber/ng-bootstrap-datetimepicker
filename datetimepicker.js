@@ -166,7 +166,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           function createDateOptionsWatch(dateAttr, dateTimeAttrOpt) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
             scope.$watch(dateTimeAttr, function (value) {
-              scope.dateOptions[dateAttr]= value;
+              if (!scope.dateOptions) {
+                 scope.dateOptions = {};
+              }
+              scope.dateOptions[dateAttr] = value;
             }); 
           }
           
