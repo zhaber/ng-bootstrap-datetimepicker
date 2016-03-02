@@ -89,8 +89,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "is-open=\"innerDateOpened\" " +
             "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
-              ["minDate"],
-              ["maxDate"],
               ["dayFormat"],
               ["monthFormat"],
               ["yearFormat"],
@@ -102,7 +100,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
             ].reduce(createAttrConcat, '') +
-            createFuncAttr("dateDisabled", "date: date, mode: mode") +
             createFuncAttr("ngClick",
               "$event: $event, opened: opened",
               "dateNgClick",
@@ -166,8 +163,15 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           }
         ],
         link: function (scope, element, attrs, ctrl) {
+          function createDateOptionsWatch(dateAttr, dateTimeAttrOpt) {
+            var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+            scope.$watch(dateTimeAttr, function (value) {
+              scope.dateOptions[dateAttr]= value;
+            }); 
+          }
+          
           var firstTimeAssign = true;
-
+ 
           scope.$watch(function () {
             return scope.ngModel;
           }, function (newTime) {
@@ -192,7 +196,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               newTime = new Date(newTime);
 
               if (isNaN(newTime.getTime()) === false) {
-                scope.time = newTime; // change the time in timepcicker
+                scope.time = newTime; // change the time in timepicker
                 if (firstTimeAssign) {
                   firstTimeAssign = false;
                 }
@@ -218,7 +222,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             if (angular.isDefined(scope.dateOpened)) {
               scope.dateOpened = value;
             }
-          })
+          }); 
+          createDateOptionsWatch('minDate');
+          createDateOptionsWatch('maxDate');
+          scope.dateOptions.dateDisabled = scope.dateDisabled;
         }
       }
     }
