@@ -96,7 +96,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayTitleFormat"],
               ["monthTitleFormat"],
               ["yearRange"],
-              ["datepickerOptions", "dateOptions"],
+              ["datepickerOptions", "innerDatepickerOptions"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
             ].reduce(createAttrConcat, '') +
@@ -166,13 +166,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           function createDateOptionsWatch(dateAttr, dateTimeAttrOpt) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
             scope.$watch(dateTimeAttr, function (value) {
-              if (!scope.dateOptions) {
-                 scope.dateOptions = {};
-              }
-              scope.dateOptions[dateAttr] = value;
+              scope.innerDatepickerOptions[dateAttr] = value;
             }); 
           }
-          
+          scope.innerDatepickerOptions = angular.isDefined(scope.dateOptions) ? scope.dateOptions : {};
+
           var firstTimeAssign = true;
  
           scope.$watch(function () {
@@ -224,11 +222,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           scope.$watch('innerDateOpened', function (value) {
             if (angular.isDefined(scope.dateOpened)) {
               scope.dateOpened = value;
-            }
-          }); 
+            } 
+          });   
           createDateOptionsWatch('minDate');
           createDateOptionsWatch('maxDate');
-          scope.dateOptions.dateDisabled = scope.dateDisabled;
+          scope.innerDatepickerOptions.dateDisabled = scope.dateDisabled;
         }
       }
     }
@@ -247,6 +245,9 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
       // Get the parent of the form
       var parent = elm.parent().controller('form');
       // Remove parent link to the controller
+      if (!parent) {
+        return;
+      }
       parent.$removeControl(ctrl);
 
       // Replace form controller with a "isolated form"
