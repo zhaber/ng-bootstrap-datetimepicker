@@ -87,6 +87,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "<input class=\"form-control\" type=\"text\" " +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
+            "datepicker-options=\"innerDatepickerOptions\" " +
             "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
               ["dayFormat"],
@@ -96,7 +97,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayTitleFormat"],
               ["monthTitleFormat"],
               ["yearRange"],
-              ["datepickerOptions", "innerDatepickerOptions"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
             ].reduce(createAttrConcat, '') +
