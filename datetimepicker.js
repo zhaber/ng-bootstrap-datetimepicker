@@ -31,7 +31,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           yearRange: "=",
           minDate: "=",
           maxDate: "=",
-          dateOptions: "=",
+          dateOptions: "=?",
           dateDisabled: "&",
           dateNgClick: "&",
           hourStep: "=",
@@ -87,7 +87,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "<input class=\"form-control\" type=\"text\" " +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
-            "datepicker-options=\"innerDatepickerOptions\" " +
             "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
               ["dayFormat"],
@@ -96,6 +95,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayHeaderFormat"],
               ["dayTitleFormat"],
               ["monthTitleFormat"],
+              ["datepicker-options", "dateOptions"], 
               ["yearRange"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
@@ -166,10 +166,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           function createDateOptionsWatch(dateAttr, dateTimeAttrOpt) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
             scope.$watch(dateTimeAttr, function (value) {
-              scope.innerDatepickerOptions[dateAttr] = value;
+              scope.dateOptions[dateAttr] = value;
             }); 
           }
-          scope.innerDatepickerOptions = angular.isDefined(scope.dateOptions) ? scope.dateOptions : {};
+          scope.dateOptions = angular.isDefined(scope.dateOptions) ? scope.dateOptions : {};
 
           var firstTimeAssign = true;
  
@@ -225,8 +225,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             } 
           });   
           createDateOptionsWatch('minDate');
-          createDateOptionsWatch('maxDate');
-          scope.innerDatepickerOptions.dateDisabled = scope.dateDisabled;
+          createDateOptionsWatch('maxDate'); 
+          scope.dateOptions.dateDisabled = scope.dateDisabled;
         }
       }
     }
