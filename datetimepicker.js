@@ -87,6 +87,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "<input class=\"form-control\" type=\"text\" " +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
+            "datepicker-options=\"dateOptions\" " + 
             "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
               ["dayFormat"],
@@ -95,7 +96,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayHeaderFormat"],
               ["dayTitleFormat"],
               ["monthTitleFormat"],
-              ["datepicker-options", "dateOptions"], 
               ["yearRange"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
@@ -131,6 +131,12 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
         },
         controller: ['$scope', '$attrs',
           function ($scope, $attrs) {
+            $scope.createDateOptionsWatch = function(dateAttr, dateTimeAttrOpt) {
+              var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
+              $scope.$watch(dateTimeAttr, function (value) {
+                $scope.dateOptions[dateAttr] = value;
+              }); 
+            }
             $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
@@ -160,17 +166,13 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             $attrs.$observe('dateFormat', function(newDateFormat, oldValue) {
               $scope.dateFormat = newDateFormat;
             });
+            $scope.dateOptions = angular.isDefined($scope.dateOptions) ? $scope.dateOptions : {};
+            $scope.createDateOptionsWatch('minDate');
+            $scope.createDateOptionsWatch('maxDate'); 
+            $scope.dateOptions.dateDisabled = $scope.dateDisabled;
           }
         ],
         link: function (scope, element, attrs, ctrl) {
-          function createDateOptionsWatch(dateAttr, dateTimeAttrOpt) {
-            var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
-            scope.$watch(dateTimeAttr, function (value) {
-              scope.dateOptions[dateAttr] = value;
-            }); 
-          }
-          scope.dateOptions = angular.isDefined(scope.dateOptions) ? scope.dateOptions : {};
-
           var firstTimeAssign = true;
  
           scope.$watch(function () {
@@ -224,9 +226,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               scope.dateOpened = value;
             } 
           });   
-          createDateOptionsWatch('minDate');
-          createDateOptionsWatch('maxDate'); 
-          scope.dateOptions.dateDisabled = scope.dateDisabled;
         }
       }
     }
