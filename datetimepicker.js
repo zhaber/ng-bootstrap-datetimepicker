@@ -135,7 +135,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
               $scope.$watch(dateTimeAttr, function (value) {
                 $scope.dateOptions[dateAttr] = value;
-              }); 
+              }, true); 
             }
             $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
