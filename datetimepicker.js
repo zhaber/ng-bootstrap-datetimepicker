@@ -131,10 +131,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
         },
         controller: ['$scope', '$attrs',
           function ($scope, $attrs) {
-            $scope.createDateOptionsWatch = function(dateAttr, dateTimeAttrOpt) {
-              var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : dateAttr;
-              $scope.$watch(dateTimeAttr, function (value) {
-                $scope.dateOptions[dateAttr] = value;
+            $scope.createDateOptionsWatch = function(dateAttr) {
+              $scope.$watch(dateAttr, function (value) {
+                var date = new Date(value);
+                $scope.dateOptions[dateAttr] = date;
+                $scope[dateAttr] = date;
               }, true); 
             }
             $scope.date_change = function () {
