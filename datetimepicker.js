@@ -121,7 +121,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["min", "minDate"],
               ["max", "maxDate"],
               ["ngHide", "hiddenTime"],
-              ["readonlyInput", "readonlyTime"]
+              ["ngDisabled", "readonlyTime"]
             ].reduce(createAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
