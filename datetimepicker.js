@@ -126,6 +126,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
+          // form is isolated so the directive is registered as one component in the parent form (not date and time)
           var tmpl = "<ng-form name=\"datetimepickerForm\" isolate-form>" + dateTmpl + timeTmpl + "</ng-form>";
           return tmpl;
         },
@@ -139,7 +140,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                   $scope[dateAttr] = date;
                 } 
               }, true); 
-            }
+            } 
             $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
@@ -246,22 +247,17 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
 
       // Get the parent of the form
       var parent = elm.parent().controller('form');
-      // Remove parent link to the controller
       if (!parent) {
         return;
       }
+      // Remove parent link to the controller
       parent.$removeControl(ctrl);
 
-      // Replace form controller with a "isolated form"
+      // Replace form controller with an "isolated form"
       var isolatedFormCtrl = {
         $setValidity: function (validationToken, isValid, control) {
           ctrlCopy.$setValidity(validationToken, isValid, control);
           parent.$setValidity(validationToken, true, ctrl);
-        },
-        $setDirty: function () {
-          elm.removeClass('ng-pristine').addClass('ng-dirty');
-          ctrl.$dirty = true;
-          ctrl.$pristine = false;
         }
       };
       angular.extend(ctrl, isolatedFormCtrl);
