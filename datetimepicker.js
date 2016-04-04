@@ -85,6 +85,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
 
           var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
             "<input class=\"form-control\" type=\"text\" " +
+            "name=\"datepicker\"" +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
             "datepicker-options=\"dateOptions\" " + 
@@ -111,12 +112,12 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             createEvalAttr("placeholder", "placeholder") +
             "/>\n" +
             "</div>\n";
-          var timeTmpl = "<div class=\"datetimepicker-wrapper\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
+          var timeTmpl = "<div class=\"datetimepicker-wrapper\" name=\"timepicker\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
             "<uib-timepicker " + [
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
-              ["meredians"],
+              ["meredians"], 
               ["mousewheel"],
               ["min", "minDate"],
               ["max", "maxDate"],
@@ -151,7 +152,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                 $scope.ngModel.setHours(time.getHours(), time.getMinutes(), 0, 0);
               }
             };
-
             $scope.time_change = function () {
               
               if ($scope.ngModel && $scope.time) {
@@ -221,10 +221,26 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ctrl.$setValidity(error, false);
             });
           }, true);
-
+          
+          scope.$watch(function () {
+            return scope.datetimepickerForm.timepicker.$touched || scope.datetimepickerForm.datepicker.$touched;
+          }, function (touched) {
+            if (touched) {
+              ctrl.$setTouched();
+            }
+          });
+          
+          scope.$watch(function () {
+            return scope.datetimepickerForm.$dirty;
+          }, function (dirty) {
+            if (dirty) {
+              ctrl.$setDirty();
+            }
+          });
+          
           scope.$watch('dateOpened', function (value) {
             scope.innerDateOpened = value;
-          });
+          }); 
           scope.$watch('innerDateOpened', function (value) {
             if (angular.isDefined(scope.dateOpened)) {
               scope.dateOpened = value;
