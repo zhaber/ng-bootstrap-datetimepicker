@@ -5,10 +5,6 @@ if "%config%" == "" (
 )
  
 set version=1.2.4.1
-if not "%PackageVersion%" == "" (
-   set version=%PackageVersion%
-)
-
 set nuget=
 if "%nuget%" == "" (
 	set nuget=nuget
