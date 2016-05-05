@@ -33,14 +33,6 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	:
  	The date and time object.
 
- * `min-date` <i class="icon-eye-open"></i>
- 	_(Default: null)_ :
- 	Defines the minimum available date and time.
-
- * `max-date` <i class="icon-eye-open"></i>
- 	_(Default: null)_ :
- 	Defines the maximum available date.
-
  * `date-disabled (date, mode)`
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
@@ -79,7 +71,7 @@ $scope.isDisabledDate = function(currentDate, mode) {
 
  * `date-options` attribute.
   	_(Default: {})_ :
-   Options for datepicker in JSON format
+   Options for datepicker in JSON format. E.g. minDate and maxDate, which define the minimum and maximum available date and time.
 
  * `hour-step` <i class="icon-eye-open"></i>
  	_(Defaults: 1)_ :

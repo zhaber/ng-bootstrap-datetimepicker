@@ -29,8 +29,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           dayTitleFormat: "=",
           monthTitleFormat: "=",
           yearRange: "=",
-          minDate: "=",
-          maxDate: "=",
           dateOptions: "=?",
           dateDisabled: "&",
           dateNgClick: "&",
@@ -60,6 +58,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               return '';
             }
           }
+          
+          function createOptionsAttr(innerAttr, dateTimeAttrOpt) {
+            var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
+            return dashCase(innerAttr) + "=\"dateOptions." + dateTimeAttr + "\" ";
+          }
 
           function createFuncAttr(innerAttr, funcArgs, dateTimeAttrOpt, defaultImpl) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
@@ -81,6 +84,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
 
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
+          }
+          
+          function createOptionsAttrConcat(previousAttrs, attr) {
+            return previousAttrs + createOptionsAttr.apply(null, attr)
           }
 
           var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
@@ -119,11 +126,12 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["showMeridian"],
               ["meredians"], 
               ["mousewheel"],
-              ["min", "minDate"],
-              ["max", "maxDate"],
               ["ngHide", "hiddenTime"],
               ["ngDisabled", "readonlyTime"]
-            ].reduce(createAttrConcat, '') +
+            ].reduce(createAttrConcat, '') + [
+              ["min", "minDate"],
+              ["max", "maxDate"]
+            ].reduce(createOptionsAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
             "></timepicker>\n" +
             "</div>";
@@ -133,15 +141,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
         },
         controller: ['$scope', '$attrs',
           function ($scope, $attrs) {
-            $scope.createDateOptionsWatch = function(dateAttr) {
-              $scope.$watch(dateAttr, function (value) {
-                var date = new Date(value);
-                $scope.dateOptions[dateAttr] = date;
-                if ($scope[dateAttr]) {
-                  $scope[dateAttr] = date;
-                } 
-              }, true); 
-            } 
             $scope.date_change = function () {
               // If we changed the date only, set the time (h,m) on it.
               // This is important in case the previous date was null.
@@ -171,8 +170,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               $scope.dateFormat = newDateFormat;
             });
             $scope.dateOptions = angular.isDefined($scope.dateOptions) ? $scope.dateOptions : {};
-            $scope.createDateOptionsWatch('minDate');
-            $scope.createDateOptionsWatch('maxDate'); 
             $scope.dateOptions.dateDisabled = $scope.dateDisabled;
           }
         ],
