@@ -157,9 +157,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                 // convert from ISO format to Date
                 if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
-              } else {
-                $scope.ngModel = new Date();
-              }
+              }  // else the time is invalid, keep the current Date value in datepicker
             };
             $scope.open = function ($event) {
               $event.preventDefault();
