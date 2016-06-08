@@ -115,9 +115,13 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Defaults: true)_ :
  	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
 
-* ` show-spinners`
+* `show-spinners`
  	_(Defaults: true)_ :
  	 Shows spinner arrows above and below the inputs.
+
+* `show-button-bar`
+ 	_(Defaults: true)_ :
+ 	 Whether or not to display a button bar underneath the uib-datepicker..
 
 * `current-text` 
  _(Default: 'Today')_ : 
