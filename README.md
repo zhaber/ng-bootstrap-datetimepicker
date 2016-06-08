@@ -1,4 +1,4 @@
-<h3>Angular UI<br>Bootstrap Date Time Picker</h3>
+<h2>Angular UI<br>Bootstrap Date Time Picker</h2>
 
 Demo: http://plnkr.co/edit/HyGjgy?p=preview
 
