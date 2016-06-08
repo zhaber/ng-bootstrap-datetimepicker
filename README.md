@@ -18,7 +18,7 @@ Include the `ui.bootstrap.datetimepicker` module in your `app.js` file. You must
 
 See https://www.nuget.org/packages/Angular-js-bootstrap-datetimepicker/
 
-###Usage Sample
+##Usage Sample
 ~~~javascript
 // Disable weekend selection
 $scope.isDisabledDate = function(currentDate, mode) {
@@ -33,7 +33,7 @@ $scope.isDisabledDate = function(currentDate, mode) {
 </datetimepicker>
 ~~~
 
-### Datetimepicker Settings ###
+## Datetimepicker Settings 
 
  * `ng-model` <i class="icon-eye-open"></i>
  	:
