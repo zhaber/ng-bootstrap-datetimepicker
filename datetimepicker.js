@@ -105,6 +105,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayTitleFormat"],
               ["monthTitleFormat"],
               ["yearRange"],
+              ["showButtonBar"],
               ["ngHide", "hiddenDate"],
               ["ngDisabled", "readonlyDate"]
             ].reduce(createAttrConcat, '') +
