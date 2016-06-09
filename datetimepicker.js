@@ -40,6 +40,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           mousewheel: "=",
           readonlyTime: "=",
           readonlyDate: "=",
+          disabledDate: "=",
           hiddenTime: "=",
           hiddenDate: "="
         },
@@ -107,7 +108,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["yearRange"],
               ["showButtonBar"],
               ["ngHide", "hiddenDate"],
-              ["ngDisabled", "readonlyDate"]
+              ["ngReadonly", "readonlyDate"],
+              ["ngDisabled", "disabledDate"]
             ].reduce(createAttrConcat, '') +
             createFuncAttr("ngClick",
               "$event: $event, opened: opened",
