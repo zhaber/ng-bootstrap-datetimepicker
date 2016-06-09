@@ -103,6 +103,10 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Defaults: false)_ :
  	 Whether a user can type inside the date input.
 
+* `disabled-date`
+ 	_(Defaults: false)_ :
+ 	 Whether the date input is disabled.
+
 * `hidden-time`
  	_(Defaults: false)_ :
  	 Whether a user can see the hours & minutes input.
