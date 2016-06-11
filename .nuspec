@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Angular-js-bootstrap-datetimepicker</id>
-    <version>1.2.4.1</version>
+    <version>$version$</version>
     <title>Angular js bootstrap datetimepicker</title>
     <authors>Vitalii Fedorenko</authors>
     <owners>Vitalii Fedorenko</owners>
