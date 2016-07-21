@@ -22,6 +22,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
         require: 'ngModel',
         scope: {
           ngModel: '=',
+          ngChange: '&',
           dayFormat: "=",
           monthFormat: "=",
           yearFormat: "=",
@@ -155,7 +156,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               }
             };
             $scope.time_change = function () {
-              
               if ($scope.ngModel && $scope.time) {
                 // convert from ISO format to Date
                 if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
@@ -192,6 +192,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                   newTime.setHours(0, 0, 0, 0);
                 } else { // clear the time
                   scope.time = null;
+                  if (scope.ngChange) scope.$eval(scope.ngChange);
                   return;
                 }
               }
@@ -203,6 +204,9 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                 scope.time = newTime; // change the time in timepicker
                 if (firstTimeAssign) {
                   firstTimeAssign = false;
+                }
+                else if (scope.ngChange) {
+                  scope.$eval(scope.ngChange);
                 }
               }
             }
