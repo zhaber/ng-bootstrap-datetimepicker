@@ -15,6 +15,7 @@
   "license": "MIT",
   "main": "datetimepicker.js",
   "dependencies": {
-    "angular-ui-bootstrap": ">=1.2.4"
+    "angular-ui-bootstrap": ">=1.2.4",
+    "angular": ">=1.4.4"
   }
 }
