@@ -8,6 +8,13 @@ Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filte
 
 ##Install
 
+###NPM
+Run `npm install angular-ui-bootstrap-datetimepicker` to install. Use the `--save` option to add it to your package.json's dependencies.
+
+If you're using browserify, you can simply `require('angular-ui-bootstrap-datetimepicker')` to make it available in your angular project. Ensure that your angular module depends on `ui.bootstrap.datetimepicker`. You must be using the `ui.bootstrap` module as well - also availbe via npm.
+
+Also include the stylesheet `datetimepicker.css` in your html. Note that this is the same stylesheet that the package.json's `style` declaration has.
+
 ###Bower
 
 Run `bower install angular-ui-bootstrap-datetimepicker --save` to persist it to `bower.json`
