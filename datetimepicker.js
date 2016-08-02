@@ -11,7 +11,12 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
   })
   .directive('datetimepicker', [
     function () {
-      if (angular.version.full < '1.4.4') {
+
+      function versionCheck(){
+        return angular.version.major === 1 && angular.version.minor >= 4 && angular.version.dot >= 4
+      }
+
+      if (!versionCheck()) {
         return {
           restrict: 'EA',
           template: "<div class=\"alert alert-danger\">Angular 1.4.0 or above is required for datetimepicker to work correctly</div>"
