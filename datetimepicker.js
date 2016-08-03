@@ -218,7 +218,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           }, true);
 
           scope.$watch(function () {
-            return scope.datetimepickerForm.$error;
+            return scope.datetimepickerForm && scope.datetimepickerForm.$error;
           }, function (errors) {
             Object.keys(ctrl.$error).forEach(function (error) {
               ctrl.$setValidity(error, true);
@@ -229,7 +229,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           }, true);
           
           scope.$watch(function () {
-            return scope.datetimepickerForm.timepicker.$touched || scope.datetimepickerForm.datepicker.$touched;
+            return scope.datetimepickerForm && (scope.datetimepickerForm.timepicker.$touched || scope.datetimepickerForm.datepicker.$touched);
           }, function (touched) {
             if (touched) {
               ctrl.$setTouched();
@@ -237,7 +237,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           });
           
           scope.$watch(function () {
-            return scope.datetimepickerForm.$dirty;
+            return scope.datetimepickerForm && scope.datetimepickerForm.$dirty;
           }, function (dirty) {
             if (dirty) {
               ctrl.$setDirty();
