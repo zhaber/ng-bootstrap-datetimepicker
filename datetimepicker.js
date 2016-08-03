@@ -220,6 +220,9 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           scope.$watch(function () {
             return scope.datetimepickerForm && scope.datetimepickerForm.$error;
           }, function (errors) {
+            if (angular.isUndefined(errors)) {
+              return;
+            }
             Object.keys(ctrl.$error).forEach(function (error) {
               ctrl.$setValidity(error, true);
             });
