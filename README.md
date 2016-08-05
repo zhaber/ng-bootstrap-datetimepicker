@@ -2,7 +2,7 @@
 
 Demo: http://plnkr.co/edit/HyGjgy?p=preview
 
-The control is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
+The plug-in is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
 Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and is localized.
 
