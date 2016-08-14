@@ -129,7 +129,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "/>\n" +
             "</div>\n";
           var timeTmpl = "<div class=\"datetimepicker-wrapper\" name=\"timepicker\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
-            "<uib-timepicker " + [
+            "<div uib-timepicker " + [
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
@@ -142,7 +142,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["max", "maxDate"]
             ].reduce(createOptionsAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
-            "></timepicker>\n" +
+            "></div>\n" +
             "</div>";
           // form is isolated so the directive is registered as one component in the parent form (not date and time)
           var tmpl = "<ng-form name=\"datetimepickerForm\" isolate-form>" + dateTmpl + timeTmpl + "</ng-form>";
