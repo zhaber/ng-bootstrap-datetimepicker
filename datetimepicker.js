@@ -13,7 +13,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
     function () {
 
       function versionCheck(){
-        return angular.version.major === 1 && angular.version.minor >= 4 && angular.version.dot >= 4
+        return (angular.version.major === 1 && (angular.version.minor > 4 || (angular.version.minor === 4 && angular.version.dot >= 4)));
       }
 
       if (!versionCheck()) {
@@ -65,7 +65,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               return '';
             }
           }
-          
+
           function createOptionsAttr(innerAttr, dateTimeAttrOpt) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
             return dashCase(innerAttr) + "=\"dateOptions." + dateTimeAttr + "\" ";
@@ -92,7 +92,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
           }
-          
+
           function createOptionsAttrConcat(previousAttrs, attr) {
             return previousAttrs + createOptionsAttr.apply(null, attr)
           }
@@ -102,7 +102,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "name=\"datepicker\"" +
             "ng-change=\"date_change($event)\" " +
             "is-open=\"innerDateOpened\" " +
-            "datepicker-options=\"dateOptions\" " + 
+            "datepicker-options=\"dateOptions\" " +
             "uib-datepicker-popup=\"{{dateFormat}}\"" +
             "ng-model=\"ngModel\" " + [
               ["dayFormat"],
@@ -133,7 +133,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
-              ["meredians"], 
+              ["meredians"],
               ["mousewheel"],
               ["ngHide", "hiddenTime"],
               ["ngDisabled", "readonlyTime"]
@@ -181,7 +181,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
         ],
         link: function (scope, element, attrs, ctrl) {
           var firstTimeAssign = true;
- 
+
           scope.$watch(function () {
             return scope.ngModel;
           }, function (newTime) {
@@ -230,7 +230,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ctrl.$setValidity(error, false);
             });
           }, true);
-          
+
           scope.$watch(function () {
             return scope.datetimepickerForm && (scope.datetimepickerForm.timepicker.$touched || scope.datetimepickerForm.datepicker.$touched);
           }, function (touched) {
@@ -238,7 +238,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ctrl.$setTouched();
             }
           });
-          
+
           scope.$watch(function () {
             return scope.datetimepickerForm && scope.datetimepickerForm.$dirty;
           }, function (dirty) {
@@ -246,15 +246,15 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ctrl.$setDirty();
             }
           });
-          
+
           scope.$watch('dateOpened', function (value) {
             scope.innerDateOpened = value;
-          }); 
+          });
           scope.$watch('innerDateOpened', function (value) {
             if (angular.isDefined(scope.dateOpened)) {
               scope.dateOpened = value;
-            } 
-          });   
+            }
+          });
         }
       }
     }
