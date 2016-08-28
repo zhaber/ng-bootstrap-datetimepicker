@@ -2,7 +2,7 @@
 
 The plugin is based on AngularUI [Datepicker](https://github.com/angular-ui/bootstrap/tree/master/src/datepicker) and [Timepicker](https://github.com/angular-ui/bootstrap/tree/master/src/timepicker).
 
-Demo: [Plunker](http://plnkr.co/edit/tCpIp0fQAY4Vuj8Krue1?p=preview)
+Demo: [Plunker](http://plnkr.co/edit/s6Gm8x8ExndUj6EBYbhi?p=preview)
 
 Date is formatted using the [date filter](http://docs.angularjs.org/api/ng.filter:date) and is localized.
 
