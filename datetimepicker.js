@@ -31,6 +31,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           dayFormat: "=",
           monthFormat: "=",
           yearFormat: "=",
+          minTime: "=",
+          maxTime: "=",
           dayHeaderFormat: "=",
           dayTitleFormat: "=",
           monthTitleFormat: "=",
@@ -66,11 +68,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             }
           }
 
-          function createOptionsAttr(innerAttr, dateTimeAttrOpt) {
-            var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
-            return dashCase(innerAttr) + "=\"dateOptions." + dateTimeAttr + "\" ";
-          }
-
           function createFuncAttr(innerAttr, funcArgs, dateTimeAttrOpt, defaultImpl) {
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
             if (attrs[dateTimeAttr]) {
@@ -91,10 +88,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
 
           function createAttrConcat(previousAttrs, attr) {
             return previousAttrs + createAttr.apply(null, attr)
-          }
-
-          function createOptionsAttrConcat(previousAttrs, attr) {
-            return previousAttrs + createOptionsAttr.apply(null, attr)
           }
 
           var dateTmpl = "<div class=\"datetimepicker-wrapper\">" +
@@ -129,7 +122,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             "/>\n" +
             "</div>\n";
           var timeTmpl = "<div class=\"datetimepicker-wrapper\" name=\"timepicker\" ng-model=\"time\" ng-change=\"time_change()\" style=\"display:inline-block\">\n" +
-            "<div uib-timepicker " + [
+            "<div uib-timepicker min=\"minDate\" max=\"maxDate\" " + [
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
@@ -137,10 +130,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["mousewheel"],
               ["ngHide", "hiddenTime"],
               ["ngDisabled", "readonlyTime"]
-            ].reduce(createAttrConcat, '') + [
-              ["min", "minDate"],
-              ["max", "maxDate"]
-            ].reduce(createOptionsAttrConcat, '') +
+            ].reduce(createAttrConcat, '')
             createEvalAttr("showSpinners", "showSpinners") +
             "></div>\n" +
             "</div>";
@@ -180,6 +170,43 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           }
         ],
         link: function (scope, element, attrs, ctrl) {
+          var updateMinTime = function() {
+            if (!scope.ngModel) {
+              return;
+            }
+            if (scope.minTime) {
+              scope.minDate = new Date(scope.ngModel.getFullYear(),
+                                       scope.ngModel.getMonth(),
+                                       scope.ngModel.getDate(),
+                                       scope.minTime.getHours(),
+                                       scope.minTime.getMinutes(),
+                                       0);
+              if (scope.dateOptions.minDate && scope.dateOptions.minDate > scope.minDate) {
+                scope.minDate = scope.dateOptions.minDate;
+              }
+            } else {
+              scope.minDate = scope.dateOptions.minDate;
+            }
+          };
+          var updateMaxTime = function() {
+            if (!scope.ngModel) {
+              return;
+            }
+            if (scope.maxTime) {
+              scope.maxDate = new Date(scope.ngModel.getFullYear(),
+                                       scope.ngModel.getMonth(),
+                                       scope.ngModel.getDate(),
+                                       scope.maxTime.getHours(),
+                                       scope.maxTime.getMinutes(),
+                                       0);
+              if (scope.dateOptions.maxDate && scope.dateOptions.maxDate < scope.maxDate) {
+                scope.maxDate = scope.dateOptions.maxDate;
+              }
+            } else {
+              scope.maxDate = scope.dateOptions.maxDate;
+            }
+          };
+
           var firstTimeAssign = true;
 
           scope.$watch(function () {
@@ -215,6 +242,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                 }
               }
             }
+            updateMinTime();
+            updateMaxTime();
           }, true);
 
           scope.$watch(function () {
@@ -254,6 +283,18 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             if (angular.isDefined(scope.dateOpened)) {
               scope.dateOpened = value;
             }
+          });
+          scope.$watch('dateOptions.minDate', function (value) {
+            updateMinTime();
+          });
+          scope.$watch('timeMin', function (value) {
+            updateMinTime();
+          });
+          scope.$watch('dateOptions.maxDate', function (value) {
+            updateMaxTime();
+          });
+          scope.$watch('timeMax', function (value) {
+            updateMaxTime();
           });
         }
       }
