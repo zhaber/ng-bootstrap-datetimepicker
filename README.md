@@ -101,6 +101,13 @@ $scope.isDisabledDate = function(currentDate, mode) {
  * `meridians`
  	_(Defaults: ['AM', 'PM'])_ :
  	 Meridian labels
+ * `min-time`
+        _(Defaults: ['0:00 AM'])_ :
+        Minumum time for time picker (Date).
+
+ * `max-time`
+        _(Defaults: ['12:59 PM'])_ :
+        Maximum time for time picker (Date).
 
  * `readonly-time`
  	_(Defaults: false)_ :
