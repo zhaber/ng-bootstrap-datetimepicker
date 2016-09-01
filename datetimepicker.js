@@ -130,7 +130,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["mousewheel"],
               ["ngHide", "hiddenTime"],
               ["ngDisabled", "readonlyTime"]
-            ].reduce(createAttrConcat, '')
+            ].reduce(createAttrConcat, '') + 
             createEvalAttr("showSpinners", "showSpinners") +
             "></div>\n" +
             "</div>";
