@@ -130,7 +130,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["mousewheel"],
               ["ngHide", "hiddenTime"],
               ["ngDisabled", "readonlyTime"]
-            ].reduce(createAttrConcat, '') + 
+            ].reduce(createAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
             "></div>\n" +
             "</div>";
@@ -152,8 +152,6 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             };
             $scope.time_change = function () {
               if ($scope.ngModel && $scope.time) {
-                // convert from ISO format to Date
-                if (!($scope.ngModel instanceof Date)) $scope.ngModel = new Date($scope.ngModel);
                 $scope.ngModel.setHours($scope.time.getHours(), $scope.time.getMinutes(), 0, 0);
               }  // else the time is invalid, keep the current Date value in datepicker
             };
@@ -212,6 +210,11 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           scope.$watch(function () {
             return scope.ngModel;
           }, function (newTime) {
+            if (scope.ngModel && !(scope.ngModel instanceof Date)) {
+                // convert from ISO format to Date
+                scope.ngModel = new Date(scope.ngModel);
+            }
+
             var timeElement = element[0].querySelector('[name=timepicker]');
 
             // if a time element is focused, updating its model will cause hours/minutes to be formatted by padding with leading zeros
