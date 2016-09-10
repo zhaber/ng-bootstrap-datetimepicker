@@ -42,9 +42,17 @@ $scope.isDisabledDate = function(currentDate, mode) {
 
 ## Datetimepicker Settings 
 
- * `ng-model` 
- 	:
- 	The date and time object.
+ * `clear-text`
+ _(Default: 'Clear')_ : 
+ The text to display for the clear button.
+
+ * `close-text`
+ _(Default: 'Done')_ : 
+ The text to display for the close popup button.
+
+ * `current-text` 
+ _(Default: 'Today')_ : 
+ The text to display for the current day button.
 
  * `datepicker-append-to-body`
  	_(Default: false)_ :
@@ -54,41 +62,13 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
 
- * `date-ng-click`
- 	_(Default: null)_ :
- 	A function called when a date input is clicked.
-
- * `day-format`
- 	_(Default: 'dd')_ :
- 	Format of day in month.
-
- * `month-format`
- 	_(Default: 'MMMM')_ :
- 	Format of month in year.
-
- * `year-format`
- 	_(Default: 'yyyy')_ :
- 	Format of year in year range.
-
- * `year-range`
- 	_(Default: 20)_ :
- 	Number of years displayed in year selection.
-
- * `day-header-format`
- 	_(Default: 'EEE')_ :
- 	Format of day in week header.
-
- * `day-title-format`
- 	_(Default: 'MMMM yyyy')_ :
- 	Format of title when selecting day.
-
- * `month-title-format`
- 	_(Default: 'yyyy')_ :
- 	Format of title when selecting month.
-
  * `date-format`
  	_(Default: 'yyyy-MM-dd')_ :
  	The format for displayed dates.
+
+ * `date-ng-click`
+ 	_(Default: null)_ :
+ 	A function called when a date input is clicked.
 
  * `date-opened`
         _(Default: false)_ :
@@ -98,69 +78,90 @@ $scope.isDisabledDate = function(currentDate, mode) {
   	_(Default: {})_ :
    Options for datepicker in JSON format. E.g. minDate and maxDate, which define the minimum and maximum available date and time.
 
+ * `day-format`
+ 	_(Default: 'dd')_ :
+ 	Format of day in month.
+
+ * `day-header-format`
+ 	_(Default: 'EEE')_ :
+ 	Format of day in week header.
+
+ * `day-title-format`
+ 	_(Default: 'MMMM yyyy')_ :
+ 	Format of title when selecting day.
+
+ * `disabled-date`
+ 	_(Defaults: false)_ :
+ 	 Whether the date input is disabled.
+
+ * `hidden-date`
+	_(Defaults: false)_ :
+ 	 Whether a user can see the date input.
+
+ * `hidden-time`
+ 	_(Defaults: false)_ :
+ 	 Whether a user can see the hours & minutes input.
+
  * `hour-step` <i class="icon-eye-open"></i>
  	_(Defaults: 1)_ :
  	 Number of hours to increase or decrease when using a button.
-
- * `minute-step` <i class="icon-eye-open"></i>
- 	_(Defaults: 1)_ :
- 	 Number of minutes to increase or decrease when using a button.
-
- * `show-meridian` <i class="icon-eye-open"></i>
- 	_(Defaults: true)_ :
- 	Whether to display 12H or 24H mode.
-
- * `meridians`
- 	_(Defaults: ['AM', 'PM'])_ :
- 	 Meridian labels
- * `min-time`
-        _(Defaults: ['0:00 AM'])_ :
-        Minumum time for time picker (Date).
 
  * `max-time`
         _(Defaults: ['12:59 PM'])_ :
         Maximum time for time picker (Date).
 
+ * `meridians`
+ 	_(Defaults: ['AM', 'PM'])_ :
+ 	 Meridian labels
+
+ * `min-time`
+        _(Defaults: ['0:00 AM'])_ :
+        Minumum time for time picker (Date).
+
+ * `minute-step` <i class="icon-eye-open"></i>
+ 	_(Defaults: 1)_ :
+ 	 Number of minutes to increase or decrease when using a button.
+
+ * `month-format`
+ 	_(Default: 'MMMM')_ :
+ 	Format of month in year.
+
+ * `month-title-format`
+ 	_(Default: 'yyyy')_ :
+ 	Format of title when selecting month.
+
+ * `mousewheel`
+ 	_(Defaults: true)_ :
+ 	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
+
+ * `ng-model` 
+ 	:
+ 	The date and time object.
+
+ * `readonly-date`
+ 	_(Defaults: false)_ :
+ 	 Whether a user can type inside the date input.
+
  * `readonly-time`
  	_(Defaults: false)_ :
  	 Whether a user can type inside the hours & minutes input.
 
-* `disabled-date`
- 	_(Defaults: false)_ :
- 	 Whether the date input is disabled.
-
-* `readonly-date`
- 	_(Defaults: false)_ :
- 	 Whether a user can type inside the date input.
-
-* `hidden-time`
- 	_(Defaults: false)_ :
- 	 Whether a user can see the hours & minutes input.
-
-* `hidden-date`
-	_(Defaults: false)_ :
- 	 Whether a user can see the date input.
-
-* `mousewheel`
- 	_(Defaults: true)_ :
- 	 Whether user can scroll inside the hours & minutes input to increase or decrease it's values.
-
-* `show-spinners`
- 	_(Defaults: true)_ :
- 	 Shows spinner arrows above and below the inputs.
-
-* `show-button-bar`
+ * `show-button-bar`
  	_(Defaults: true)_ :
  	 Whether or not to display a button bar underneath the uib-datepicker..
 
-* `current-text` 
- _(Default: 'Today')_ : 
- The text to display for the current day button.
+ * `show-meridian` <i class="icon-eye-open"></i>
+ 	_(Defaults: true)_ :
+ 	Whether to display 12H or 24H mode.
 
-* `clear-text`
- _(Default: 'Clear')_ : 
- The text to display for the clear button.
+ * `show-spinners`
+ 	_(Defaults: true)_ :
+ 	 Shows spinner arrows above and below the inputs.
 
-* `close-text`
- _(Default: 'Done')_ : 
- The text to display for the close popup button.
+ * `year-format`
+ 	_(Default: 'yyyy')_ :
+ 	Format of year in year range.
+
+ * `year-range`
+ 	_(Default: 20)_ :
+ 	Number of years displayed in year selection.
