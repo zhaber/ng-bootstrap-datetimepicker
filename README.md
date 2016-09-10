@@ -42,13 +42,21 @@ $scope.isDisabledDate = function(currentDate, mode) {
 
 ## Datetimepicker Settings 
 
- * `ng-model` <i class="icon-eye-open"></i>
+ * `ng-model` 
  	:
  	The date and time object.
+
+ * `datepicker-append-to-body`
+ 	_(Default: false)_ :
+ 	Append the datepicker popup element to body, rather than inserting after datepicker-popup.
 
  * `date-disabled (date, mode)`
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
+
+ * `date-ng-click`
+ 	_(Default: null)_ :
+ 	A function called when a date input is clicked.
 
  * `day-format`
  	_(Default: 'dd')_ :
@@ -81,6 +89,10 @@ $scope.isDisabledDate = function(currentDate, mode) {
  * `date-format`
  	_(Default: 'yyyy-MM-dd')_ :
  	The format for displayed dates.
+
+ * `date-opened`
+        _(Default: false)_ :
+        Whether or not to show the datepicker.
 
  * `date-options` attribute.
   	_(Default: {})_ :
