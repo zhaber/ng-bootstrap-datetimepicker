@@ -240,13 +240,13 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
                 if (firstTimeAssign) {
                   firstTimeAssign = false;
                 }
-                else if (scope.ngChange) {
-                  scope.$eval(scope.ngChange);
-                }
               }
             }
             updateMinTime();
             updateMaxTime();
+            if (scope.ngChange) {
+              scope.$eval(scope.ngChange);
+            }
           }, true);
 
           scope.$watch(function () {
