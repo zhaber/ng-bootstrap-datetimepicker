@@ -37,6 +37,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           dayTitleFormat: "=",
           monthTitleFormat: "=",
           yearRange: "=",
+          showButtonBar: "=",
           dateOptions: "=?",
           dateDisabled: "&",
           dateNgClick: "&",
