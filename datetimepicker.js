@@ -309,30 +309,21 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
   return {
     restrict: 'A',
     require: '?form',
-    link: function (scope, elm, attrs, ctrl) {
-      if (!ctrl) {
+    link: function (scope, element, attrs, formController) {
+      if (!formController) {
         return;
+      }   
+     
+      // Remove this form from parent controller
+      formController.$$parentForm.$removeControl(formController)
+      if (!formController.$$parentForm) {
+        return; 
+      } 
+      var _handler = formController.$setValidity;
+      formController.$setValidity = function (validationErrorKey, isValid, cntrl) {
+          _handler.call(formController, validationErrorKey, isValid, cntrl);
+          formController.$$parentForm.$setValidity(validationErrorKey, true, this);
       }
-      // Do a copy of the controller
-      var ctrlCopy = {};
-      angular.copy(ctrl, ctrlCopy);
-
-      // Get the parent of the form
-      var parent = elm.parent().controller('form');
-      if (!parent) {
-        return;
-      }
-      // Remove parent link to the controller
-      parent.$removeControl(ctrl);
-
-      // Replace form controller with an "isolated form"
-      var isolatedFormCtrl = {
-        $setValidity: function (validationToken, isValid, control) {
-          ctrlCopy.$setValidity(validationToken, isValid, control);
-          parent.$setValidity(validationToken, true, ctrl);
-        }
-      };
-      angular.extend(ctrl, isolatedFormCtrl);
     }
   };
 }]);
