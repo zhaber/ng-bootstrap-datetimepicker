@@ -41,6 +41,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           dateOptions: "=?",
           dateDisabled: "&",
           dateNgClick: "&",
+          dateNgFocus: "&",
           hourStep: "=",
           dateOpened: "=",
           minuteStep: "=",
@@ -114,6 +115,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             createFuncAttr("ngClick",
               "$event: $event, opened: opened",
               "dateNgClick",
+              "open($event)") +
+            createFuncAttr("ngFocus",
+              "$event: $event, opened: opened",
+              "dateNgFocus",
               "open($event)") +
             createEvalAttr("currentText", "currentText") +
             createEvalAttr("clearText", "clearText") +
