@@ -258,7 +258,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           }, true);
 
           scope.$watch(function () {
-            return scope.datetimepickerForm && scope.datetimepickerForm.$error;
+            return scope.datetimepickerForm && Object.keys(scope.datetimepickerForm.$error);
           }, function (errors) {
             if (angular.isUndefined(errors)) {
               return;
@@ -266,7 +266,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             Object.keys(ctrl.$error).forEach(function (error) {
               ctrl.$setValidity(error, true);
             });
-            Object.keys(errors).forEach(function (error) {
+            errors.forEach(function (error) {
               ctrl.$setValidity(error, false);
             });
           }, true);
