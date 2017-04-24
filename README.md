@@ -166,7 +166,7 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Defaults: true)_ :
  	 Shows spinner arrows above and below the inputs.
  
- * `template-url`
+ * `timepicker-template-url`
   _(Defaults: uib/template/timepicker/timepicker.html)_ :
    Add the ability to override the template used on the component.
 
