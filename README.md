@@ -58,6 +58,14 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Default: false)_ :
  	Append the datepicker popup element to body, rather than inserting after datepicker-popup.
 
+ * `datepicker-popup-template-url`
+  _(Default: uib/template/datepickerPopup/popup.html)_ :
+  Add the ability to override the template used on the component.
+
+ * `datepicker-template-url`
+  _(Default: uib/template/datepicker/datepicker.html)_ :
+  Add the ability to override the template used on the component (inner uib-datepicker).
+
  * `date-disabled (date, mode)`
  	_(Default: null)_ :
  	An optional expression to disable visible options based on passing date and current mode _(day|month|year)_.
@@ -157,6 +165,10 @@ $scope.isDisabledDate = function(currentDate, mode) {
  * `show-spinners`
  	_(Defaults: true)_ :
  	 Shows spinner arrows above and below the inputs.
+ 
+ * `timepicker-template-url`
+  _(Defaults: uib/template/timepicker/timepicker.html)_ :
+   Add the ability to override the template used on the component.
 
  * `year-format`
  	_(Default: 'yyyy')_ :

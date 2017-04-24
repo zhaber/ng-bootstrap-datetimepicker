@@ -52,7 +52,10 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
           readonlyDate: "=",
           disabledDate: "=",
           hiddenTime: "=",
-          hiddenDate: "="
+          hiddenDate: "=",
+          datepickerTemplateUrl: "@",
+          datepickerPopupTemplateUrl: "@",
+          timepickerTemplateUrl: "@"
         },
         template: function (elem, attrs) {
           function dashCase(name) {
@@ -121,6 +124,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               "dateNgFocus",
               "open($event)") +
             createEvalAttr("currentText", "currentText") +
+            createEvalAttr("datepickerTemplateUrl", "datepickerTemplateUrl") +
+            createEvalAttr("datepickerPopupTemplateUrl", "datepickerPopupTemplateUrl") +
             createEvalAttr("clearText", "clearText") +
             createEvalAttr("datepickerAppendToBody", "datepickerAppendToBody") +
             createEvalAttr("closeText", "closeText") +
@@ -138,6 +143,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["ngDisabled", "readonlyTime"]
             ].reduce(createAttrConcat, '') +
             createEvalAttr("showSpinners", "showSpinners") +
+            createEvalAttr("templateUrl", "timepickerTemplateUrl") +
             "></div>\n" +
             "</div>";
           // form is isolated so the directive is registered as one component in the parent form (not date and time)
