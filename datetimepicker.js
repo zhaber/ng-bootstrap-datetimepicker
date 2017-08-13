@@ -68,6 +68,8 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
             var dateTimeAttr = angular.isDefined(dateTimeAttrOpt) ? dateTimeAttrOpt : innerAttr;
             if (attrs[dateTimeAttr]) {
               return dashCase(innerAttr) + "=\"" + dateTimeAttr + "\" ";
+            } else if (dateTimeAttr in attrs) { // attribute with an empty value such as "required"
+              return dateTimeAttr + " ";
             } else {
               return '';
             }
@@ -110,6 +112,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["dayTitleFormat"],
               ["monthTitleFormat"],
               ["yearRange"],
+              ["required"],
               ["showButtonBar"],
               ["ngHide", "hiddenDate"],
               ["ngReadonly", "readonlyDate"],
@@ -137,6 +140,7 @@ angular.module('ui.bootstrap.datetimepicker', ["ui.bootstrap.dateparser", "ui.bo
               ["hourStep"],
               ["minuteStep"],
               ["showMeridian"],
+              ["required"],
               ["meredians"],
               ["mousewheel"],
               ["ngHide", "hiddenTime"],
