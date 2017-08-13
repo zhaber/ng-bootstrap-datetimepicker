@@ -154,6 +154,10 @@ $scope.isDisabledDate = function(currentDate, mode) {
  	_(Defaults: false)_ :
  	 Whether a user can type inside the hours & minutes input.
 
+ * `required`
+ 	_(Defaults: false)_ :
+ 	 Whether a non-empty value is required.
+
  * `show-button-bar`
  	_(Defaults: true)_ :
  	 Whether or not to display a button bar underneath the uib-datepicker..
