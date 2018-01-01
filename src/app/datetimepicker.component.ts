@@ -1,5 +1,5 @@
-import {Component, Input, forwardRef, Injectable, SimpleChanges} from '@angular/core';
-import { NgbDateStruct, NgbTimeStruct, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, forwardRef} from '@angular/core';
+import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface NgbDateTimeStruct extends NgbDateStruct, NgbTimeStruct {}
@@ -10,12 +10,12 @@ export interface NgbDateTimeStruct extends NgbDateStruct, NgbTimeStruct {}
   providers: [
     { 
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgbDatetimepicker),
+      useExisting: forwardRef(() => NgbDateTimePicker),
       multi: true
     }
   ]
 })
-export class NgbDatetimepicker implements ControlValueAccessor {
+export class NgbDateTimePicker implements ControlValueAccessor {
     title = 'datetimepicker';
     @Input() model: NgbDateTimeStruct;
     date: NgbDateStruct;

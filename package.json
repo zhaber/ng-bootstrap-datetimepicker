@@ -1,6 +1,6 @@
 {
   "name": "@zhaber/ng-bootstrap-datetimepicker",
-  "version": "v1.0.0-alpha.2",
+  "version": "v1.0.0-alpha.4",
   "description": "Datetime Bootstrap 4 component, powered by Angular",
   "author": {
     "name": "https://github.com/zhaber"
@@ -32,16 +32,16 @@
   "dependencies": {
     "jquery": ">=1.9.1",
     "bootstrap": ">=4.0.0-beta.2",
-    "@angular/common": ">=4.0.0",
-    "@angular/compiler": ">=4.0.0",
+    "@angular/common": ">=5.1.2",
+    "@angular/compiler": ">=5.1.2",
     "@angular/core": ">=5.1.2",
-    "@angular/forms": ">=4.0.0",
+    "@angular/forms": ">=5.1.2",
     "@angular/platform-browser": ">=5.1.2",
     "@angular/platform-browser-dynamic": ">=5.1.2",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.8",
     "popper.js": "^1.12.3",
-    "rxjs": "^5.5.0",
-    "zone.js": "^0.8.4"
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.10"
   },
   "devDependencies": {
     "@angular/cli": ">=1.6.2",

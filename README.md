@@ -12,55 +12,57 @@ Run `npm install npm install @zhaber/ng-bootstrap-datetimepicker` to install. Us
 
  * `datePlaceholder`
  Date input placeholder.
- Type: String 
+ _(Type: String)_ 
 
  * `displayMonths`
  Number of months to display
- Type: number
+ _(Type: number)_
 
  * `firstDayOfWeek`
  First day of the week. With default calendar we use ISO 8601: 'weekday' is 1=Mon ... 7=Sun
- Type: number
+ _(Type: number)_
 
  * `hourStep`
  Number of hours to increase or decrease when using a button.
- Type: number
+ _(Type: number)_
 
  * `meridian`
  Whether to display 12H or 24H mode.
- Type: boolean;
+ _(Type: boolean)_
 
  * `minuteStep`
  Number of minutes to increase or decrease when using a button.
- Type: number
+ _(Type: number)_
 
- * `navigation: 'select' | 'arrows' | 'none';`
+ * `navigation`
  Navigation type: `select` (default with select boxes for month and year), `arrows`
  (without select boxes, only navigation arrows) or `none` (no navigation at all)
+ _(Type: 'select' | 'arrows' | 'none'`)_
  
  * `showWeekdays: boolean;`
  Whether to display days of the week
- Type: boolean
+ _(Type: boolean)_
 
- * `outsideDays: 'visible' | 'collapsed' | 'hidden';`
+ * `outsideDays`
  Whether to display week numbers
+ _(Type: 'visible' | 'collapsed' | 'hidden')_
 
  * `seconds`
  Whether to display seconds input.
- Type: boolean
+ _(Type: boolean)_
 
  * `secondStep`
  Number of seconds to increase or decrease when using a button.
- Type: number
+ _(Type: number)_
 
  * `showWeekNumbers`
  Whether to display week numbers
- Type: boolean
+ _(Type: boolean)_
 
  * `spinners `
  Whether to display the spinners above and below the inputs.
- Type: boolean
+ _(Type: boolean)_
 
  * `timeReadonlyInputs`
  To make timepicker readonly
- Type: boolean
+ _(Type: boolean)_

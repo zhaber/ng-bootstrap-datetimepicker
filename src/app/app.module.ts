@@ -3,15 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDatetimepicker, NgbDateTimeStruct } from './datetimepicker.component';
+import { NgbDateTimePicker, NgbDateTimeStruct } from './datetimepicker.component';
 import { FormGroup, FormControl } from '@angular/forms';
+
+export {NgbDateTimeStruct} from './datetimepicker.component';
 
 @Component({
   selector: 'my-app',
   template: `
   <form [formGroup]="demo"> 
-    <ngbd-datetimepicker #dtp [(ngModel)]="model" datePlaceholder="yyyy-mm-dd" formControlName="datetime" name="datetimepicker"
-                         [displayMonths]="displayMonths"></ngbd-datetimepicker> 
+    <ngbd-datetimepicker #dtp [(ngModel)]="model" datePlaceholder="yyyy-mm-dd" formControlName="datetime" 
+                         [displayMonths]="displayMonths"></ngbd-datetimepicker>
       <hr/> 
       <button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button> 
       <button class="btn btn-sm btn-outline-primary" (click)="addDisplayMonth()">Add display month</button>
@@ -49,12 +51,12 @@ export class App {
 }  
 
 @NgModule({
-  declarations: [App, NgbDatetimepicker],
+  declarations: [App, NgbDateTimePicker],
   imports: [
     NgbModule.forRoot(), BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [App],
-  exports: [NgbDatetimepicker]
+  exports: [NgbDateTimePicker]
 })
-export class NgbDatetimepickerModule { }
+export class NgbDateTimePickerModule { }
