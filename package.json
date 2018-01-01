@@ -1,22 +1,52 @@
 {
-  "name": "angular-ui-bootstrap-datetimepicker",
-  "version": "2.5.0",
-  "description": "Date-time picker AngularJS Bootstrap plugin",
+  "name": "@zhaber/ng-bootstrap-datetimepicker",
+  "version": "v1.0.0-alpha.2",
+  "description": "Datetime Bootstrap 4 component, powered by Angular",
   "author": {
-    "name": "Vitalii Fedorenko"
+    "name": "https://github.com/zhaber"
   },
   "keywords": [
     "date",
     "time",
     "picker",
-    "angularjs",
+    "angular",
     "bootstrap"
   ],
   "license": "MIT",
-  "main": "datetimepicker.js",
-  "style": "datetimepicker.css",
+  "main": "src/app/app.module.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaber/ng-bootstrap-datetimepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhaber/ng-bootstrap-datetimepicker/issues"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "packagr": "ng-packagr -p ng-package.json"
+  },
+  "private": false,
+  "homepage": "https://github.com/zhaber/ng-bootstrap-datetimepicker",
   "dependencies": {
-    "angular-ui-bootstrap": ">=1.2.4",
-    "angular": ">=1.4.4"
+    "jquery": ">=1.9.1",
+    "bootstrap": ">=4.0.0-beta.2",
+    "@angular/common": ">=4.0.0",
+    "@angular/compiler": ">=4.0.0",
+    "@angular/core": ">=5.1.2",
+    "@angular/forms": ">=4.0.0",
+    "@angular/platform-browser": ">=5.1.2",
+    "@angular/platform-browser-dynamic": ">=5.1.2",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.8",
+    "popper.js": "^1.12.3",
+    "rxjs": "^5.5.0",
+    "zone.js": "^0.8.4"
+  },
+  "devDependencies": {
+    "@angular/cli": ">=1.6.2",
+    "@angular/compiler-cli": ">=5.1.2",
+    "ng-packagr": "^1.6.0",
+    "typescript": ">=2.4.2 <2.6"
   }
 }

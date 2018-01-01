@@ -1,2 +1,5 @@
-bower_components/
 .idea/
+npm-debug.log
+node_modules/
+dist/
+src/.DS_Store

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ]
+  }
+}
