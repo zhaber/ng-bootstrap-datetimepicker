@@ -15,11 +15,11 @@ Run `npm install npm install @zhaber/ng-bootstrap-datetimepicker` to install. Us
  _(Type: String)_ 
 
  * `displayMonths`
- Number of months to display
+ Number of months to display.
  _(Type: number)_
 
  * `firstDayOfWeek`
- First day of the week. With default calendar we use ISO 8601: 'weekday' is 1=Mon ... 7=Sun
+ First day of the week. With default calendar we use ISO 8601: 'weekday' is 1=Mon ... 7=Sun.
  _(Type: number)_
 
  * `hourStep`
@@ -36,15 +36,15 @@ Run `npm install npm install @zhaber/ng-bootstrap-datetimepicker` to install. Us
 
  * `navigation`
  Navigation type: `select` (default with select boxes for month and year), `arrows`
- (without select boxes, only navigation arrows) or `none` (no navigation at all)
+ (without select boxes, only navigation arrows) or `none` (no navigation at all).
  _(Type: 'select' | 'arrows' | 'none'`)_
  
  * `showWeekdays: boolean;`
- Whether to display days of the week
+ Whether to display days of the week.
  _(Type: boolean)_
 
  * `outsideDays`
- Whether to display week numbers
+ Whether to display week numbers.
  _(Type: 'visible' | 'collapsed' | 'hidden')_
 
  * `seconds`
@@ -56,7 +56,7 @@ Run `npm install npm install @zhaber/ng-bootstrap-datetimepicker` to install. Us
  _(Type: number)_
 
  * `showWeekNumbers`
- Whether to display week numbers
+ Whether to display week numbers.
  _(Type: boolean)_
 
  * `spinners `
@@ -64,5 +64,5 @@ Run `npm install npm install @zhaber/ng-bootstrap-datetimepicker` to install. Us
  _(Type: boolean)_
 
  * `timeReadonlyInputs`
- To make timepicker readonly
+ To make timepicker readonly.
  _(Type: boolean)_

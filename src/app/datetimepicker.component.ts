@@ -106,19 +106,29 @@ export class NgbDateTimePicker implements ControlValueAccessor {
     registerOnTouched() {}
 
     private onDateChange(date: NgbDateStruct) {
-        if (this.model == null) {
-            let date = new Date();
-            date.setHours(0,0,0,0);
-            this.setModel(this.fromDate(date));
+        let time: NgbTimeStruct;
+        if (this.model != null) {
+            time = {hour: this.model.hour, minute: this.model.minute, second: this.model.second};
+        } else {
+            time = {hour: null, minute: null, second: null};
         }
-        this.setModel({month: date.month, year: date.year, day: date.day, hour: this.model.hour, minute: this.model.minute, second: this.model.second});
+        if (date == null || typeof date != "object") {
+            date = {month: null, year: null, day: null};
+        }
+        this.setModel(<NgbDateTimeStruct>{month: date.month, year: date.year, day: date.day, ...time});
     }
 
-    private onTimeChange(date: NgbTimeStruct) {
-        if (this.model == null) {
-            this.setModel(this.fromDate(new Date()));
+    private onTimeChange(time: NgbTimeStruct) {
+        let date: NgbDateStruct;
+        if (this.model != null) {
+            date = {month: this.model.month, year: this.model.year, day: this.model.day};
+        } else {
+            date = {month: null, year: null, day: null};
         }
-        this.setModel({month: this.model.month, year: this.model.year, day: this.model.day, hour: date.hour, minute: date.minute, second:  date.second});
+        if (time == null) {
+            time = {hour: null, minute: null, second: null};
+        }
+        this.setModel(<NgbDateTimeStruct>{...date, hour: time.hour, minute: time.minute, second: time.second});
     }
 
     fromDate(date: Date): NgbDateTimeStruct {
@@ -126,16 +136,20 @@ export class NgbDateTimePicker implements ControlValueAccessor {
             hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds()} : null;
     }
 
-    private setModel(newModel: NgbDateTimeStruct) {
-        this.model = newModel;
-        if (this.model != null) {
-            this.date = {month: this.model.month, year: this.model.year, day: this.model.day};
-            this.time = {hour: this.model.hour, minute: this.model.minute, second: this.model.second};
+    private setModel(model: NgbDateTimeStruct) {
+        this.model = model;
+        if (model != null) {
+            if (model.year != null) {
+                this.date = {month: model.month, year: model.year, day: model.day};
+            }
+            if (model.hour != null) {
+                this.time = {hour: model.hour, minute: model.minute, second: model.second};
+            }
         } else {
             this.date = null;
             this.time = null;
         }
-        this.onChange(this.model);
+        this.onChange(model);
     }
 
 }
