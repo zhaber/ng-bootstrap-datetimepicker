@@ -2,7 +2,13 @@
 
 Welcome to the Angular version of the Datetimepicker Bootstrap library. It's using TypeScript and targeting the Bootstrap 4 CSS framework.  As with Bootstrap 4, this library is a work in progress.  The plugin is based on Angular [Datepicker](https://ng-bootstrap.github.io/#/components/datepicker/api) and [Timepicker](https://ng-bootstrap.github.io/#/components/timepicker/api).
 
-Demo: [Plunker](http://plnkr.co/edit/FH9QBCHaloCqGz9Qrd85?p=preview)
+## Demo ##
+
+[Plunker](http://plnkr.co/edit/FH9QBCHaloCqGz9Qrd85?p=preview)
+
+To test the component locally run `ng serve`:
+`git clone https://github.com/zhaber/datetimepicker.git`
+`ng serve`
 
 ## Install
 

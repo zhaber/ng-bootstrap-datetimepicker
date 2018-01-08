@@ -1,53 +1,46 @@
-import { Component, NgModule } from '@angular/core';
+import {Component, NgModule, ViewChild} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateTimePicker, NgbDateTimeStruct } from './datetimepicker.component';
-import { FormGroup, FormControl } from '@angular/forms';
 
 export {NgbDateTimeStruct} from './datetimepicker.component';
 
 @Component({
   selector: 'my-app',
   template: `
-  <form [formGroup]="demo"> 
-    <ngbd-datetimepicker #dtp [(ngModel)]="model" datePlaceholder="yyyy-mm-dd" formControlName="datetime" 
-                         [displayMonths]="displayMonths"></ngbd-datetimepicker>
-      <hr/> 
+  <form #demoForm="ngForm"> 
+    <ngbd-datetimepicker #dtp [(ngModel)]="model" datePlaceholder="yyyy-mm-dd" name="datetime" [displayMonths]="displayMonths"></ngbd-datetimepicker>
+      <hr/>
       <button class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button> 
       <button class="btn btn-sm btn-outline-primary" (click)="addDisplayMonth()">Add display month</button>
-      <hr/> 
-    <pre>Model: {{ model | json }}</pre>
-  </form>`
+      <hr/>
+  </form>
+    <pre>Model: {{ model || null | json }}</pre>
+    <pre>Pristine: {{ demoForm.pristine }}</pre>`
 })
 export class App {
 
-  demo: FormGroup;
   model: NgbDateTimeStruct;
   displayMonths: number = 1;
 
-  fromDate(date): NgbDateTimeStruct {
+  static fromDate(date): NgbDateTimeStruct {
      if (date) {
        return {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate(), hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds()};
      } else {
        return date;
      }
-  } 
+  }
 
   selectToday() {
-    this.model = this.fromDate(new Date());
+    this.model = App.fromDate(new Date());
   }
 
   addDisplayMonth() {
     this.displayMonths++;
   }
 
-  ngOnInit() {
-    this.demo = new FormGroup({
-      datetime: new FormControl()
-    });
-  }
 }  
 
 @NgModule({

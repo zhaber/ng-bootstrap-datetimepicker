@@ -16,10 +16,11 @@ export interface NgbDateTimeStruct extends NgbDateStruct, NgbTimeStruct {}
   ]
 })
 export class NgbDateTimePicker implements ControlValueAccessor {
-    title = 'datetimepicker';
+
     @Input() model: NgbDateTimeStruct;
     date: NgbDateStruct;
     time: NgbTimeStruct;
+    private firstTimeAssign: boolean = true;
 
     /**
      * Date input placeholder.
@@ -97,13 +98,13 @@ export class NgbDateTimePicker implements ControlValueAccessor {
         this.setModel(newModel);
     }
 
-    onChange = (newModel: NgbDateTimeStruct) => {};
+    onChange = (model: NgbDateTimeStruct) => {};
 
-    registerOnChange(fn) {
+    registerOnChange(fn: any): void {
         this.onChange = fn;
     }
 
-    registerOnTouched() {}
+    registerOnTouched(): void {}
 
     private onDateChange(date: NgbDateStruct) {
         let time: NgbTimeStruct;
@@ -131,11 +132,6 @@ export class NgbDateTimePicker implements ControlValueAccessor {
         this.setModel(<NgbDateTimeStruct>{...date, hour: time.hour, minute: time.minute, second: time.second});
     }
 
-    fromDate(date: Date): NgbDateTimeStruct {
-        return (date && date.getFullYear) ? {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate(),
-            hour: date.getHours(), minute: date.getMinutes(), second: date.getSeconds()} : null;
-    }
-
     private setModel(model: NgbDateTimeStruct) {
         this.model = model;
         if (model != null) {
@@ -149,7 +145,13 @@ export class NgbDateTimePicker implements ControlValueAccessor {
             this.date = null;
             this.time = null;
         }
-        this.onChange(model);
+        if (!this.firstTimeAssign) {
+            this.onChange(model);
+        } else {
+            // Skip very first assignment to null done by Angular
+            if (model !== null) {
+                this.firstTimeAssign = false;
+            }
+        }
     }
-
 }

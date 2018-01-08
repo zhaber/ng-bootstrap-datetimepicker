@@ -1,15 +1,18 @@
 <div class="form-inline">
     <div class="input-group" style="margin-right: 10px">
-       <input class="form-control" [placeholder]="datePlaceholder" [(ngModel)]="date" ngbDatepicker #datetimepicker="ngbDatepicker" name="datepicker"
-              (ngModelChange)="onDateChange($event)"
-              [displayMonths]="displayMonths"
-              [firstDayOfWeek]="firstDayOfWeek"
-              [navigation]="navigation"
-              [showWeekdays]="showWeekdays"
-              [outsideDays]="outsideDays"
-              [showWeekNumbers]="showWeekNumbers"
-       >
-       <button class="input-group-addon" (click)="datetimepicker.toggle()" type="button">
+        <label>
+            <input class="form-control" [placeholder]="datePlaceholder" [(ngModel)]="date" ngbDatepicker
+                   #datetimepicker="ngbDatepicker" name="datepicker"
+                   (ngModelChange)="onDateChange($event)"
+                   [displayMonths]="displayMonths"
+                   [firstDayOfWeek]="firstDayOfWeek"
+                   [navigation]="navigation"
+                   [showWeekdays]="showWeekdays"
+                   [outsideDays]="outsideDays"
+                   [showWeekNumbers]="showWeekNumbers"
+            >
+        </label>
+        <button class="input-group-addon" (click)="datetimepicker.toggle()" type="button">
            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 34 28" enable-background="new 0 0 34 28" xml:space="preserve" style="width: 19px">
             <g><g>
@@ -19,7 +22,7 @@
 			    S12.9,16,14,16z M20,16c1.1,0,2-0.9,2-2s-0.9-2-2-2c-1.1,0-2,0.9-2,2S18.9,16,20,16z M26,16c1.1,0,2-0.9,2-2s-0.9-2-2-2
 			    c-1.1,0-2,0.9-2,2S24.9,16,26,16z M8,22c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2C6,21.1,6.9,22,8,22z M14,22
 			    c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2C12,21.1,12.9,22,14,22z M20,22c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2
-			    c-1.1,0-2,0.9-2,2C18,21.1,18.9,22,20,22z M26,22c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2C24,21.1,24.9,22,26,22z"/>
+			    c-1.1,0-2,0.9-2,2C18,21.1,18.9,22,20,22z M26,22c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c-1.1,0-2,0.9-2,2C24,21.1,24.9,22,26,22z"></path>
 	        </g></g>
           </svg>
        </button>
