@@ -20,7 +20,7 @@ export class NgbDateTimePicker implements ControlValueAccessor {
     @Input() model: NgbDateTimeStruct;
     date: NgbDateStruct;
     time: NgbTimeStruct;
-    private firstTimeAssign: boolean = true;
+    firstTimeAssign: boolean = true; // TODO make it private once ivy is default in Angular 7, see https://github.com/angular/angular/issues/11978
 
     /**
      * Date input placeholder.
@@ -106,7 +106,7 @@ export class NgbDateTimePicker implements ControlValueAccessor {
 
     registerOnTouched(): void {}
 
-    private onDateChange(date: NgbDateStruct) {
+    onDateChange(date: NgbDateStruct) { // TODO make it private once ivy is default in Angular 7
         let time: NgbTimeStruct;
         if (this.model != null) {
             time = {hour: this.model.hour, minute: this.model.minute, second: this.model.second};
@@ -119,7 +119,7 @@ export class NgbDateTimePicker implements ControlValueAccessor {
         this.setModel(<NgbDateTimeStruct>{month: date.month, year: date.year, day: date.day, ...time});
     }
 
-    private onTimeChange(time: NgbTimeStruct) {
+    onTimeChange(time: NgbTimeStruct) { // TODO make it private once ivy is default in Angular 7
         let date: NgbDateStruct;
         if (this.model != null) {
             date = {month: this.model.month, year: this.model.year, day: this.model.day};
@@ -132,7 +132,7 @@ export class NgbDateTimePicker implements ControlValueAccessor {
         this.setModel(<NgbDateTimeStruct>{...date, hour: time.hour, minute: time.minute, second: time.second});
     }
 
-    private setModel(model: NgbDateTimeStruct) {
+    setModel(model: NgbDateTimeStruct) { // TODO make it private once ivy is default in Angular 7
         this.model = model;
         if (model != null) {
             if (model.year != null) {
